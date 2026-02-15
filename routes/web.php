@@ -1,9 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\Admin\Support\DocumentationController;
+use App\Http\Controllers\Admin\Support\FaqController;
+use App\Http\Controllers\Admin\Support\TicketController as AdminTicketController;
+use App\Http\Controllers\Admin\UserManagementController;
+use App\Http\Controllers\Auth\DeviceVerificationController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\SocialAuthController;
+use App\Http\Controllers\Auth\VerificationController;
+use App\Http\Controllers\DocumentationController as PublicDocumentationController;
+use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\Support\FaqPublicController;
+use App\Http\Controllers\Support\TicketController;
 use App\Http\Controllers\TwoFactorController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,161 +29,115 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Home page route - redirect appropriately
-Route::get('/', function () {
-    return Auth::check()
-        ? redirect()->route('mikrotik-suite.dashboard')
-        : redirect()->route('login');
-});
+// Home page
+Route::get('/', fn () => Auth::check()
+    ? redirect()->route('mikrotik-suite.dashboard')
+    : redirect()->route('login')
+);
 
-// Rate Limited Auth Routes with Login Attempt Checking
+// Authentication Routes
 Route::middleware(['throttle:5,1'])->group(function () {
-    // Show login form (GET)
-    Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])
-        ->name('login');
+    Route::controller(LoginController::class)->group(function () {
+        Route::get('/login', 'showLoginForm')->name('login');
+        Route::post('/login', 'login')->middleware(['check-login-attempts'])->name('login.post');
+    });
 
-    // Process login (POST) with attempt checking
-    Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])
-        ->middleware(['check-login-attempts'])
-        ->name('login.post');
-
-    // Other auth routes
     Auth::routes(['verify' => true, 'login' => false]);
 });
 
-// Registration success page
-Route::get('/registration-success', function () {
-    return view('auth.registration-success');
-})->name('registration.success')->middleware('guest');
-
-// Pricing Page
-Route::get('/pricing', function () {
-    return view('pages.pricing');
-})->name('pricing');
-
-// Payment Routes
-Route::middleware(['auth'])->group(function () {
-    Route::post('/payment/checkout', [App\Http\Controllers\PaymentController::class, 'checkout'])->name('payment.checkout');
-    Route::post('/payment/trial', [App\Http\Controllers\PaymentController::class, 'startTrial'])->name('payment.trial');
-    Route::get('/payment/success', [App\Http\Controllers\PaymentController::class, 'success'])->name('payment.success');
-    Route::get('/payment/failed', [App\Http\Controllers\PaymentController::class, 'failed'])->name('payment.failed');
+// Social Auth
+Route::controller(SocialAuthController::class)->prefix('auth')->name('social.')->group(function () {
+    Route::get('{provider}', 'redirect')->name('redirect');
+    Route::get('{provider}/callback', 'callback')->name('callback');
 });
 
-// Terms & Conditions
-Route::get('/terms', function () {
-    return view('pages.terms');
-})->name('terms');
+// Verification Routes
+Route::middleware(['guest'])->prefix('auth')->name('auth.')->group(function () {
+    Route::view('verification-required', 'auth.verification-required')->name('verification.required');
+    Route::post('verify-device', [DeviceVerificationController::class, 'verify'])->name('verify-device');
+});
 
-// Timeline
-Route::get('/timeline', function () {
-    return view('pages.timeline');
-})->name('timeline');
+// Email Verification
+Route::controller(VerificationController::class)->group(function () {
+    Route::post('/email/resend/guest', 'resendGuest')->name('verification.resend.guest')->middleware(['guest', 'throttle:6,1']);
+    Route::post('/email/verify/otp', 'verifyOtp')->name('verification.verify.otp')->middleware(['auth', 'throttle:6,1']);
+});
 
-// FAQ
-Route::get('/faq', [App\Http\Controllers\Support\FaqPublicController::class, 'index'])->name('faq');
-// FAQ alias for consistency
-Route::get('/faqs', [App\Http\Controllers\Support\FaqPublicController::class, 'index'])->name('faq.index');
+// Public Pages
+Route::view('/registration-success', 'auth.registration-success')->name('registration.success')->middleware('guest');
+Route::view('/pricing', 'pages.pricing')->name('pricing');
+Route::view('/terms', 'pages.terms')->name('terms');
+Route::view('/timeline', 'pages.timeline')->name('timeline');
+Route::view('/support', 'pages.support')->name('support');
+Route::view('/support/ticket', 'pages.support.ticket')->name('support.ticket');
 
-// Support
-Route::get('/support', function () {
-    return view('pages.support');
-})->name('support');
+// Support & Documentation
+Route::get('/faq', [FaqPublicController::class, 'index'])->name('faq');
+Route::get('/faqs', [FaqPublicController::class, 'index'])->name('faq.index');
+Route::controller(PublicDocumentationController::class)->prefix('documentation')->name('documentation')->group(function () {
+    Route::get('/{slug?}', 'show')->name('.show');
+});
 
-Route::get('/support/ticket', function () {
-    return view('pages.support.ticket');
-})->name('support.ticket');
+// Language Switch
+Route::get('lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
 
-Route::post('/support/ticket', [App\Http\Controllers\Support\TicketController::class, 'store'])->name('ticket.store');
-Route::get('/support/my-tickets', [App\Http\Controllers\Support\TicketController::class, 'index'])->name('ticket.index')->middleware('auth');
-Route::get('/support/ticket/{id}', [App\Http\Controllers\Support\TicketController::class, 'show'])->name('ticket.show')->middleware('auth');
-Route::post('/support/ticket/{id}/reply', [App\Http\Controllers\Support\TicketController::class, 'reply'])->name('ticket.reply')->middleware('auth');
-
-// Documentation
-Route::get('/documentation/{slug?}', [App\Http\Controllers\DocumentationController::class, 'show'])->name('documentation.show');
-Route::get('/documentation', [App\Http\Controllers\DocumentationController::class, 'show'])->name('documentation'); // Alias for index
-
-Route::get('/documentation', [App\Http\Controllers\DocumentationController::class, 'show'])->name('documentation'); // Alias for index
-
-// Guest Resend Verification
-Route::post('/email/resend/guest', [App\Http\Controllers\Auth\VerificationController::class, 'resendGuest'])
-    ->name('verification.resend.guest')
-    ->middleware(['guest', 'throttle:6,1']);
-
-// OTP Verification Route
-Route::post('/email/verify/otp', [App\Http\Controllers\Auth\VerificationController::class, 'verifyOtp'])
-    ->name('verification.verify.otp')
-    ->middleware(['auth', 'throttle:6,1']);
-
-Route::get('lang/{locale}', [App\Http\Controllers\LanguageController::class, 'switch'])->name('lang.switch');
-
-
-// 2FA Routes & User Profile (Common)
+// Authenticated Routes
 Route::middleware(['auth'])->group(function () {
-    // User Profile
-    Route::prefix('user-profile')->group(function () {
-        Route::get('/', [UserProfileController::class, 'index'])->name('user.profile');
-        Route::post('update', [UserProfileController::class, 'update'])->name('user.profile.update');
-        Route::post('preferences', [UserProfileController::class, 'updatePreferences'])->name('user.profile.preferences');
 
-        // Sensitive actions require password confirmation
+    // Payment
+    Route::controller(PaymentController::class)->prefix('payment')->name('payment.')->group(function () {
+        Route::post('/checkout', 'checkout')->name('checkout');
+        Route::post('/trial', 'startTrial')->name('trial');
+        Route::get('/success', 'success')->name('success');
+        Route::get('/failed', 'failed')->name('failed');
+    });
+
+    // Support Tickets (User)
+    Route::controller(TicketController::class)->prefix('support/ticket')->name('ticket.')->group(function () {
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}', 'show')->name('show');
+        Route::post('/{id}/reply', 'reply')->name('reply');
+    });
+    Route::get('/support/my-tickets', [TicketController::class, 'index'])->name('ticket.index');
+
+    // User Profile
+    Route::controller(UserProfileController::class)->prefix('user-profile')->name('user.profile')->group(function () {
+        Route::get('/', 'index');
+        Route::post('update', 'update')->name('.update');
+        Route::post('preferences', 'updatePreferences')->name('.preferences');
+
         Route::middleware(['password.confirm'])->group(function () {
-            Route::post('password', [UserProfileController::class, 'updatePassword'])->name('user.profile.password');
-            Route::delete('/', [UserProfileController::class, 'destroy'])->name('user.profile.destroy');
+            Route::post('password', 'updatePassword')->name('.password');
+            Route::delete('/', 'destroy')->name('.destroy');
         });
     });
 
-    // Two-Factor Authentication Challenge
-    Route::get('two-factor-challenge', function () {
-        return view('auth.two-factor-challenge');
-    })->name('two-factor.challenge');
-
-    // 2FA verification with rate limiting (5 attempts per minute)
-    Route::post('two-factor-challenge', [App\Http\Controllers\TwoFactorController::class, 'verify'])
+    // Two-Factor Authentication
+    Route::view('two-factor-challenge', 'auth.two-factor-challenge')->name('two-factor.challenge');
+    Route::post('two-factor-challenge', [TwoFactorController::class, 'verify'])
         ->middleware(['throttle:5,1'])
         ->name('two-factor.verify');
 
-    // Two-Factor Authentication Management
-    Route::prefix('two-factor')->name('two-factor.')->group(function () {
-        // Recovery with rate limiting (3 attempts per minute)
-        Route::post('recovery', [App\Http\Controllers\TwoFactorController::class, 'verifyRecovery'])
-            ->middleware(['throttle:3,1'])
-            ->name('recovery.verify');
-
-        // Other 2FA management routes
-        Route::get('recovery', [App\Http\Controllers\TwoFactorController::class, 'showRecoveryForm'])->name('recovery');
-        Route::post('recovery-codes', [App\Http\Controllers\TwoFactorController::class, 'showRecoveryCodes'])->name('recovery-codes');
-        Route::post('confirm', [App\Http\Controllers\TwoFactorController::class, 'confirm'])->name('confirm');
-        Route::post('disable', [App\Http\Controllers\TwoFactorController::class, 'disable'])->name('disable');
-        Route::get('setup', function () {
-            return redirect()->route('user.profile');
-        })->name('setup');
+    Route::controller(TwoFactorController::class)->prefix('two-factor')->name('two-factor.')->group(function () {
+        Route::post('recovery', 'verifyRecovery')->middleware(['throttle:3,1'])->name('recovery.verify');
+        Route::get('recovery', 'showRecoveryForm')->name('recovery');
+        Route::post('recovery-codes', 'showRecoveryCodes')->name('recovery-codes');
+        Route::post('confirm', 'confirm')->name('confirm');
+        Route::post('disable', 'disable')->name('disable');
+        Route::get('setup', fn() => redirect()->route('user.profile'))->name('setup');
     });
 
-    // Stop Impersonation
-    Route::post('stop-impersonation', [App\Http\Controllers\Admin\UserManagementController::class, 'stopImpersonation'])->name('admin.users.stop-impersonation');
+    // Admin Routes
+    Route::post('stop-impersonation', [UserManagementController::class, 'stopImpersonation'])->name('admin.users.stop-impersonation');
 
-    // Admin Ticket Management
     Route::group(['prefix' => 'admin/support', 'as' => 'admin.support.'], function () {
-        Route::resource('tickets', App\Http\Controllers\Admin\Support\TicketController::class);
-        Route::post('tickets/{ticket}/reply', [App\Http\Controllers\Admin\Support\TicketController::class, 'reply'])->name('tickets.reply');
-        Route::resource('faqs', App\Http\Controllers\Admin\Support\FaqController::class);
-        Route::post('documentation/upload', [App\Http\Controllers\Admin\Support\DocumentationController::class, 'uploadImage'])->name('documentation.upload');
-        Route::resource('documentation', App\Http\Controllers\Admin\Support\DocumentationController::class);
+        Route::resource('tickets', AdminTicketController::class);
+        Route::post('tickets/{ticket}/reply', [AdminTicketController::class, 'reply'])->name('tickets.reply');
+        Route::resource('faqs', FaqController::class);
+        Route::post('documentation/upload', [DocumentationController::class, 'uploadImage'])->name('documentation.upload');
+        Route::resource('documentation', DocumentationController::class);
     });
 });
 
-// Additional verification routes
-Route::middleware(['guest'])->prefix('auth')->name('auth.')->group(function () {
-    Route::get('verification-required', function () {
-        return view('auth.verification-required');
-    })->name('verification.required');
-
-    Route::post('verify-device', [App\Http\Controllers\Auth\DeviceVerificationController::class, 'verify'])->name('verify-device');
-});
-
-// Load NetFusion Replica Routes
+// Load NetFusion Routes
 require __DIR__ . '/netfusion.php';
-
-// Social Authentication Routes (Wildcard must be last)
-Route::get('auth/{provider}', [App\Http\Controllers\Auth\SocialAuthController::class, 'redirect'])->name('social.redirect');
-Route::get('auth/{provider}/callback', [App\Http\Controllers\Auth\SocialAuthController::class, 'callback'])->name('social.callback');

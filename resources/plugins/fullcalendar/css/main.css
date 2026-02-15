@@ -396,13 +396,20 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     background: var(--fc-page-bg-color, #fff);
     position: -webkit-sticky;
     position: sticky;
-    z-index: 2; /* TODO: var */
+    z-index: var(--fc-sticky-z-index, 2);
     /* TODO: box-shadow when sticking */
   }
 .fc .fc-scrollgrid-section-header.fc-scrollgrid-section-sticky > * {
     top: 0; /* because border-sharing causes a gap at the top */
-      /* TODO: give safari -1. has bug */
   }
+/* TODO: give safari -1. has bug */
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+        .fc .fc-scrollgrid-section-header.fc-scrollgrid-section-sticky > * {
+            top: -1px;
+        }
+    }
+}
 .fc .fc-scrollgrid-section-footer.fc-scrollgrid-section-sticky > * {
     bottom: 0; /* known bug: bottom-stickiness doesn't work in safari */
   }
@@ -663,6 +670,8 @@ A HORIZONTAL event
 
 :root {
   --fc-daygrid-event-dot-width: 8px;
+  --fc-now-indicator-arrow-width: 6px;
+  --fc-now-indicator-arrow-vertical-radius: 5px;
 }
 .fc .fc-popover {
     position: fixed;
@@ -1048,7 +1057,7 @@ A VERTICAL event
       bottom: calc(var(--fc-event-resizer-dot-total-width, 8px) / -2);
     }
 .fc .fc-timegrid .fc-daygrid-body { /* the all-day daygrid within the timegrid view */
-    z-index: 2; /* put above the timegrid-body so that more-popover is above everything. TODO: better solution */
+    z-index: auto; /* ensure it doesn't create a stacking context that traps popovers */
   }
 .fc .fc-timegrid-divider {
     padding: 0 0 2px; /* browsers get confused when you set height. use padding instead */
@@ -1173,9 +1182,6 @@ A VERTICAL event
   /* bg */
 
 }
-.fc .fc-timegrid-col-bg {
-    z-index: 2; /* TODO: kill */
-  }
 .fc .fc-timegrid-col-bg .fc-non-business { z-index: 1 }
 .fc .fc-timegrid-col-bg .fc-bg-event { z-index: 2 }
 .fc .fc-timegrid-col-bg .fc-highlight { z-index: 3 }
@@ -1282,16 +1288,16 @@ A VERTICAL event
 .fc-direction-ltr .fc-timegrid-now-indicator-arrow {
     left: 0;
 
-    /* triangle pointing right. TODO: mixin */
-    border-width: 5px 0 5px 6px;
+    /* triangle pointing right */
+    border-width: var(--fc-now-indicator-arrow-vertical-radius) 0 var(--fc-now-indicator-arrow-vertical-radius) var(--fc-now-indicator-arrow-width);
     border-top-color: transparent;
     border-bottom-color: transparent;
   }
 .fc-direction-rtl .fc-timegrid-now-indicator-arrow {
     right: 0;
 
-    /* triangle pointing left. TODO: mixin */
-    border-width: 5px 6px 5px 0;
+    /* triangle pointing left */
+    border-width: var(--fc-now-indicator-arrow-vertical-radius) var(--fc-now-indicator-arrow-width) var(--fc-now-indicator-arrow-vertical-radius) 0;
     border-top-color: transparent;
     border-bottom-color: transparent;
   }

@@ -8408,15 +8408,18 @@ var FullCalendar = (function (exports) {
             }
             var eventUiBases = props.eventUiBases;
             var eventSegs = this.sliceEventStore.apply(this, __spreadArrays([props.eventStore, eventUiBases, dateProfile, nextDayThreshold], extraArgs));
+            var eventDrag = this.sliceEventDrag.apply(this, __spreadArrays([props.eventDrag, eventUiBases, dateProfile, nextDayThreshold], extraArgs));
+            var eventResize = this.sliceEventResize.apply(this, __spreadArrays([props.eventResize, eventUiBases, dateProfile, nextDayThreshold], extraArgs));
             return {
                 dateSelectionSegs: this.sliceDateSelection.apply(this, __spreadArrays([props.dateSelection, eventUiBases, context], extraArgs)),
                 businessHourSegs: this.sliceBusinessHours.apply(this, __spreadArrays([props.businessHours, dateProfile, nextDayThreshold, context], extraArgs)),
                 fgEventSegs: eventSegs.fg,
                 bgEventSegs: eventSegs.bg,
-                eventDrag: this.sliceEventDrag.apply(this, __spreadArrays([props.eventDrag, eventUiBases, dateProfile, nextDayThreshold], extraArgs)),
-                eventResize: this.sliceEventResize.apply(this, __spreadArrays([props.eventResize, eventUiBases, dateProfile, nextDayThreshold], extraArgs)),
+                eventDrag: eventDrag,
+                eventResize: eventResize,
+                interactionSegs: (eventDrag && eventDrag.segs) || (eventResize && eventResize.segs) || [],
                 eventSelection: props.eventSelection
-            }; // TODO: give interactionSegs?
+            };
         };
         Slicer.prototype.sliceNowDate = function (// does not memoize
         date, context) {
@@ -8675,13 +8678,7 @@ var FullCalendar = (function (exports) {
             }
             return refCallback;
         };
-        // TODO: check callers that don't care about order. should use getAll instead
-        // NOTE: this method has become less valuable now that we are encouraged to map order by some other index
-        // TODO: provide ONE array-export function, buildArray, which fails on non-numeric indexes. caller can manipulate and "collect"
-        RefMap.prototype.collect = function (startIndex, endIndex, step) {
-            return collectFromHash(this.currentMap, startIndex, endIndex, step);
-        };
-        RefMap.prototype.getAll = function () {
+        RefMap.prototype.buildArray = function () {
             return hashValuesToArray(this.currentMap);
         };
         return RefMap;
@@ -8909,7 +8906,7 @@ var FullCalendar = (function (exports) {
         };
         SimpleScrollGrid.prototype.computeShrinkWidth = function () {
             return hasShrinkWidth(this.props.cols)
-                ? computeShrinkWidth(this.scrollerElRefs.getAll())
+                ? computeShrinkWidth(this.scrollerElRefs.buildArray())
                 : 0;
         };
         SimpleScrollGrid.prototype.computeScrollerDims = function () {
@@ -10028,9 +10025,20 @@ var FullCalendar = (function (exports) {
         }
         FeaturefulElementDragging.prototype.destroy = function () {
             this.pointer.destroy();
-            // HACK: simulate a pointer-up to end the current drag
-            // TODO: fire 'dragend' directly and stop interaction. discourage use of pointerup event (b/c might not fire)
-            this.onPointerUp({});
+            if (this.isInteracting) {
+                this.isInteracting = false;
+                allowSelection(document.body);
+                allowContextMenu(document.body);
+                if (this.isDragging) {
+                    this.autoScroller.stop();
+                    this.mirror.cleanup();
+                    this.stopDrag({});
+                }
+                if (this.delayTimeoutId) {
+                    clearTimeout(this.delayTimeoutId);
+                    this.delayTimeoutId = null;
+                }
+            }
         };
         FeaturefulElementDragging.prototype.startDelay = function (ev) {
             var _this = this;
@@ -12330,7 +12338,6 @@ var FullCalendar = (function (exports) {
         // Hit System
         // ----------------------------------------------------------------------------------------------------
         Table.prototype.prepareHits = function () {
-            this.rowPositions = new PositionCache(this.rootEl, this.rowRefs.getAll().map(function (rowObj) { return rowObj.getCellEls()[0]; }), // first cell el in each row. TODO: not optimal
             false, true // vertical
             );
             this.colPositions = new PositionCache(this.rootEl, this.rowRefs.currentMap[0].getCellEls(), // cell els in first row
@@ -13558,7 +13565,7 @@ var FullCalendar = (function (exports) {
         if (snapsPerSlot === null) {
             snapDuration = slotDuration;
             snapsPerSlot = 1;
-            // TODO: say warning?
+            console.warn('snapDuration must evenly divide slotDuration. The default slotDuration will be used.');
         }
         return { snapDuration: snapDuration, snapsPerSlot: snapsPerSlot };
     }

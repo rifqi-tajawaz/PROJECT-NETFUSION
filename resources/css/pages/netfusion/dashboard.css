@@ -1,0 +1,81 @@
+/* Card & Effects */
+.glass-card {
+    background: #ffffff;
+    border: 1px solid rgba(231, 234, 243, 0.7);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s ease-in-out;
+}
+
+.glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 123, 255, 0.2);
+}
+
+/* Stats Cards */
+.stat-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+/* Typography */
+.display-stat {
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #1e2022;
+}
+
+/* Offline State Specifics */
+.offline-placeholder {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.01) 100%);
+}
+
+.router-icon-circle {
+    width: 90px;
+    height: 90px;
+    background: #e7f1ff;
+    color: #0d6efd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem auto;
+    font-size: 2.5rem;
+}
+
+.feature-item {
+    font-size: 0.85rem;
+    color: #677788;
+    font-weight: 500;
+}
+
+/* Quick Actions */
+.action-card {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    transition: all 0.2s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.action-card:hover {
+    background-color: #f8faff;
+    border-color: #bcccff;
+    transform: scale(1.02);
+}
+
+/* Table Styles */
+.table-custom tr td {
+    vertical-align: middle;
+    padding: 1rem 1.25rem;
+}

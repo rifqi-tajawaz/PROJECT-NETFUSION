@@ -1,0 +1,290 @@
+/* Responsive */
+@media screen and (max-width:1280px) {
+    .email-header {
+        height: auto;
+    }
+
+    .email-content {
+        padding: 100px 0 0 0;
+    }
+}
+
+@media screen and (max-width:1024px) {
+    .email-header {
+        border-top-left-radius: .25rem;
+    }
+
+    .email-sidebar {
+        left: -280px;
+    }
+
+    .email-content {
+        margin-left: 0;
+    }
+
+    .email-header {
+        left: 0;
+    }
+
+    .email-toggled .email-sidebar {
+        left: 0;
+    }
+
+    .email-toggled .overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 250px;
+        background: #000;
+        opacity: .5;
+        z-index: 9;
+        display: block;
+        cursor: move;
+        transition: all .3s ease-out;
+    }
+
+    .chat-header {
+        border-top-left-radius: .25rem;
+    }
+
+    .chat-footer {
+        border-bottom-left-radius: .25rem;
+    }
+
+    .chat-sidebar {
+        left: -370px;
+    }
+
+    .chat-content {
+        margin-left: 0;
+    }
+
+    .chat-header {
+        left: 0;
+    }
+
+    .chat-footer {
+        left: 0;
+    }
+
+    .chat-toggled .chat-sidebar {
+        left: 0;
+    }
+
+    .chat-toggled .overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 340px;
+        background: #000;
+        opacity: .5;
+        z-index: 11;
+        display: block;
+        cursor: move;
+        transition: all .3s ease-out;
+    }
+}
+
+/* ============================================
+   MOBILE SIDEBAR STYLES (max-width: 1199px)
+   ============================================ */
+@media only screen and (max-width: 1199px) {
+    .table-responsive {
+        white-space: nowrap;
+    }
+
+    /* Default hidden state */
+    .sidebar-wrapper {
+        left: -260px !important;
+        transition: 0.3s ease-out;
+        width: 260px !important;
+    }
+
+    .sidebar-wrapper .sidebar-header {
+        position: absolute !important;
+        /* Position absolute so it moves with parent */
+        top: 0 !important;
+        left: 0 !important;
+        width: 260px !important;
+        justify-content: space-between !important;
+        display: flex;
+        align-items: center;
+    }
+
+
+    .sidebar-wrapper .sidebar-header .logo-name {
+        flex-grow: 1;
+        overflow: hidden;
+    }
+
+    .sidebar-wrapper .sidebar-header .logo-name h5 {
+        font-size: 1.1rem;
+    }
+
+    .sidebar-wrapper .sidebar-header .sidebar-close {
+        display: flex !important;
+    }
+
+    .top-header .navbar {
+        left: 0 !important;
+    }
+
+    .main-wrapper {
+        margin-left: 0 !important;
+        margin-top: 70px;
+    }
+
+    .main-wrapper .main-content {
+        padding: 1.5rem 0.75rem;
+    }
+
+    .page-footer {
+        left: 0 !important;
+    }
+
+    /* ================================
+       TOGGLED STATE (Sidebar Open)
+       ================================ */
+    .toggled .sidebar-wrapper {
+        left: 0 !important;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    /* Header positioning - Move with parent, not fixed */
+    .toggled .sidebar-wrapper .sidebar-header {
+        position: absolute !important;
+        /* Not fixed - moves with sidebar */
+        top: 0 !important;
+        left: 0 !important;
+        width: 260px !important;
+        height: 70px !important;
+        z-index: 100 !important;
+    }
+
+
+    /* Sidebar Navigation Scroll */
+    .toggled .sidebar-wrapper .sidebar-nav {
+        margin-top: 70px !important;
+        height: calc(100vh - 70px - 60px) !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        scrollbar-width: none !important;
+        padding-top: 0 !important;
+        -webkit-overflow-scrolling: touch;
+
+        &::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+        }
+
+        .simplebar-scrollbar {
+            top: 0 !important;
+        }
+
+        .simplebar-track.simplebar-vertical {
+            top: 0 !important;
+            bottom: 0 !important;
+        }
+    }
+
+    /* Remove SimpleBar internal padding */
+    .toggled .sidebar-wrapper .sidebar-nav .simplebar-wrapper,
+    .toggled .sidebar-wrapper .sidebar-nav .simplebar-height-auto-observer-wrapper,
+    .toggled .sidebar-wrapper .sidebar-nav .simplebar-mask,
+    .toggled .sidebar-wrapper .sidebar-nav .simplebar-offset,
+    .toggled .sidebar-wrapper .sidebar-nav .simplebar-content-wrapper,
+    .toggled .sidebar-wrapper .sidebar-nav .simplebar-content {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Menu list styling - Compact & Clean */
+    .toggled .sidebar-wrapper .sidebar-nav ul.metismenu {
+        padding: 0 10px 70px 10px !important;
+        /* No top padding */
+        margin: 0 !important;
+    }
+
+    .toggled .sidebar-wrapper .sidebar-nav ul.metismenu>li:first-child {
+        margin-top: 5px !important;
+        /* Minimal top margin */
+        padding-top: 0 !important;
+    }
+
+
+    /* Menu link styling - Keep consistent with desktop */
+    .toggled .sidebar-wrapper .metismenu .menu-title,
+    .toggled .sidebar-wrapper .metismenu .menu-label {
+        display: block !important;
+        opacity: 1 !important;
+        width: auto !important;
+        visibility: visible !important;
+    }
+
+    .toggled .sidebar-wrapper .metismenu .parent-icon {
+        margin-right: 10px !important;
+    }
+
+    /* No submenu overrides - use desktop styles */
+
+    /* Footer styling */
+    .toggled .sidebar-wrapper .sidebar-bottom {
+        width: 100% !important;
+        padding: 0 !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+
+        a {
+            border-radius: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            box-shadow: none !important;
+            justify-content: center !important;
+            padding: 15px 0 !important;
+        }
+    }
+
+    .toggled .logo-name {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        width: auto !important;
+    }
+
+    /* Overlay */
+    .toggled .overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #000;
+        opacity: .5;
+        z-index: 11;
+        display: block;
+        cursor: pointer;
+        transition: all .2s ease-out;
+    }
+
+    /* Prevent content shift */
+    .toggled .top-header .navbar,
+    .toggled .page-footer,
+    .toggled .main-wrapper {
+        left: 0 !important;
+        margin-left: 0 !important;
+    }
+
+    .mini-sidebar {
+        left: -260px !important;
+    }
+}
+
+/* Small screens */
+@media only screen and (max-width: 992px) {
+    .search-popup {
+        position: fixed !important;
+        top: 0 !important;
+        z-index: 10;
+    }
+}

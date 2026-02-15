@@ -1,0 +1,294 @@
+// Import Global Variables
+@import "../../../variables";
+
+/* --- Load Balancing Shared SCSS (NetFusion Theme) --- */
+
+.pcc-container {
+    background-color: var(--nf-body-bg);
+}
+
+/* Glass Card - Theme Aware */
+.glass-card-static {
+    background: var(--nf-card-bg);
+    border: 1px solid var(--nf-sidebar-border);
+    border-radius: $border-radius-lg;
+    box-shadow: $card-box-shadow;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: $box-shadow-lg;
+    }
+}
+
+/* Base Form Styles (Theme Adaptive) */
+.glass-input,
+.glass-select {
+    background-color: lighten($brand-light, 1%);
+    border: 1px solid $border-color_1;
+    color: $brand-dark;
+    border-radius: $border-radius !important;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    padding: $input-btn-padding-y $input-btn-padding-x;
+
+    &:focus {
+        background-color: #ffffff;
+        border-color: $brand-primary;
+        box-shadow: $input-focus-box-shadow;
+        color: $brand-dark;
+    }
+
+    &::placeholder {
+        color: lighten($body-color, 20%);
+    }
+}
+
+/* Input Group Container */
+.glass-group {
+    background: lighten($brand-light, 1%);
+    border: 1px solid $border-color_1;
+    border-radius: $border-radius-sm;
+    transition: all 0.2s ease;
+
+    .input-group-text {
+        background-color: transparent;
+        border: none;
+        color: lighten($body-color, 20%);
+    }
+
+    input {
+        color: $brand-dark;
+        font-weight: 500;
+
+        &.text-danger {
+            color: $brand-danger !important;
+        }
+
+        &.text-info {
+            color: $brand-info !important;
+        }
+
+        &.text-primary {
+            color: $brand-primary !important;
+        }
+    }
+
+    &:focus-within {
+        border-color: $brand-primary;
+        box-shadow: 0 0 0 2px rgba($brand-primary, 0.1);
+        background: #ffffff;
+    }
+}
+
+/* Table Refinement */
+.table-glass {
+    --bs-table-bg: transparent;
+    --bs-table-color: $brand-dark;
+
+    thead th {
+        background-color: lighten($brand-light, 1%);
+        color: lighten($body-color, 10%);
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-bottom: 2px solid $border-color_1;
+        font-size: 0.75rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+
+    tbody tr {
+        transition: background-color 0.2s;
+        border-bottom: 1px solid transparent;
+
+        &:hover {
+            background-color: darken($brand-light, 2%);
+        }
+    }
+}
+
+/* Switches */
+.form-check-input:checked {
+    background-color: $brand-primary;
+    border-color: $brand-primary;
+}
+
+/* --- Dark Mode Overrides (Standard Professional approach) --- */
+[data-bs-theme="dark"] {
+
+    .glass-input,
+    .glass-select {
+        background-color: rgba(0, 0, 0, 0.3) !important;
+        border-color: var(--nf-sidebar-border) !important;
+        color: #ffffff !important;
+
+        &:focus {
+            background-color: rgba(0, 0, 0, 0.5) !important;
+            border-color: #5f2ded !important;
+            color: #ffffff !important;
+        }
+
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+    }
+
+    .glass-group {
+        background-color: rgba(0, 0, 0, 0.3);
+        border-color: var(--nf-sidebar-border);
+
+        .input-group-text {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        input {
+            color: #ffffff !important;
+        }
+
+        &:focus-within {
+            background-color: rgba(0, 0, 0, 0.5);
+            border-color: #5f2ded;
+        }
+    }
+
+    .table-glass {
+        --bs-table-color: #ffffff;
+
+        thead th {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.6);
+            border-bottom-color: var(--nf-sidebar-border);
+        }
+
+        tbody tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+    }
+}
+
+
+/* --- Terminal / Code Editor (Always Dark) --- */
+.code-editor {
+    background-color: #1e1e1e; // VS Code Dark
+    color: #d4d4d4;
+    border-radius: $border-radius;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    position: relative;
+    border: 1px solid var(--nf-sidebar-border); // Adaptive border
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    // Flexbox layout for gutter + content
+    display: flex;
+    min-height: 100%;
+
+    .code-gutter {
+        width: 40px;
+        min-width: 40px;
+        text-align: right;
+        padding-right: 12px;
+        color: #858585;
+        user-select: none;
+        border-right: 1px solid #333;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        background-color: #252526;
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+    }
+
+    .code-content {
+        flex: 1;
+        padding: 1rem;
+        overflow-x: auto;
+        white-space: pre;
+        tab-size: 4;
+        background-color: transparent;
+        outline: none;
+    }
+}
+
+/* Custom Scrollbar (Sidebar Sync - Theme Aware) */
+.custom-scrollbar {
+    &::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    /* Light Mode Default (Dark Thumb) */
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Dark Mode Scrollbar Override */
+[data-bs-theme="dark"] .custom-scrollbar,
+.code-editor .custom-scrollbar {
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.4);
+    }
+}
+
+.token-keyword {
+    color: #569cd6;
+    font-weight: bold;
+}
+
+// Blue
+.token-comment {
+    color: #6a9955;
+    font-style: italic;
+}
+
+// Green
+.token-string {
+    color: #ce9178;
+}
+
+// Orange
+.token-number {
+    color: #b5cea8;
+}
+
+// Light Green
+.token-variable {
+    color: #9cdcfe;
+}
+
+// Light Blue
+.token-command {
+    color: #dcdcaa;
+}
+
+// Yellow
+
+/* Animations */
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeInRow 0.3s ease-out forwards;
+}

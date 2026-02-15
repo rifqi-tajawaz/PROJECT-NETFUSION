@@ -1,0 +1,197 @@
+// ============================================================
+// MODERN SIDEBAR - Additional Styles
+// Search Results & Animations
+// ============================================================
+
+// Search Results
+.search-results {
+    position: absolute;
+    top: calc(100% + var(--spacing-2));
+    left: var(--spacing-5);
+    right: var(--spacing-5);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+
+    .search-result-item {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-3);
+        padding: var(--spacing-3) var(--spacing-4);
+        text-decoration: none;
+        color: var(--color-text-secondary);
+        border-bottom: 1px solid var(--color-border);
+        transition: all 0.2s;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &.no-results {
+            color: var(--color-text-muted);
+            font-size: var(--text-sm);
+            cursor: default;
+        }
+
+        &:hover,
+        &.highlighted {
+            background: rgba(14, 165, 233, 0.1);
+            color: var(--color-primary);
+        }
+
+        i {
+            font-size: 16px;
+        }
+
+        span {
+            font-size: var(--text-sm);
+        }
+    }
+}
+
+// Animations
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+// Sidebar overlay (mobile)
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: 999;
+
+    &.active {
+        display: block;
+        animation: fadeIn 0.3s ease;
+    }
+}
+
+@media (max-width: 1024px) {
+    .sidebar-overlay.active {
+        display: block;
+    }
+}
+
+// Tooltip for collapsed state
+.sidebar-tooltip {
+    position: absolute;
+    left: calc(var(--sidebar-width-collapsed) + var(--spacing-2));
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    padding: var(--spacing-2) var(--spacing-3);
+    border-radius: var(--radius-md);
+    font-size: var(--text-xs);
+    white-space: nowrap;
+    box-shadow: var(--shadow-lg);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-10px);
+    transition: all 0.2s;
+    z-index: 1001;
+
+    &.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+}
+
+// Smooth transitions for all interactive elements
+.modern-sidebar * {
+    backface-visibility: hidden;
+}
+
+// Focus styles for accessibility
+.nav-item:focus-visible,
+.mobile-nav-item:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+// Loading state for search
+.search-input.loading {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10" stroke-width="4" stroke-opacity="0.3"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right var(--spacing-3) center;
+    background-size: 20px;
+}
+
+// Touch feedback for mobile
+@media (hover: none) and (pointer: coarse) {
+    .nav-item:active,
+    .mobile-nav-item:active {
+        transform: scale(0.95);
+        background: var(--color-bg-tertiary);
+    }
+}
+
+// Print styles
+@media print {
+    .modern-sidebar,
+    .mobile-bottom-nav {
+        display: none !important;
+    }
+}
+
+// Reduced motion
+@media (prefers-reduced-motion: reduce) {
+    .modern-sidebar *,
+    .modern-sidebar *::before,
+    .modern-sidebar *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+// High contrast mode
+@media (prefers-contrast: high) {
+    .modern-sidebar {
+        border-right-width: 2px;
+    }
+
+    .nav-item {
+        border: 1px solid transparent;
+
+        &:hover,
+        &.active {
+            border-color: var(--color-text);
+        }
+    }
+}

@@ -1,0 +1,186 @@
+// ============================================================
+// DESIGN TOKENS - TYPOGRAPHY
+// Based on modern dashboard design systems
+// ============================================================
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    // === FONT FAMILIES ===
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+    --font-display: 'Inter', sans-serif;
+
+    // === FONT SIZES ===
+    // Scale: 1.250 (Major Third)
+    --text-xs: 0.75rem;      // 12px
+    --text-sm: 0.875rem;     // 14px
+    --text-base: 1rem;       // 16px
+    --text-lg: 1.125rem;     // 18px
+    --text-xl: 1.25rem;      // 20px
+    --text-2xl: 1.5rem;      // 24px
+    --text-3xl: 1.875rem;    // 30px
+    --text-4xl: 2.25rem;     // 36px
+    --text-5xl: 3rem;        // 48px
+    --text-6xl: 3.75rem;     // 60px
+    --text-7xl: 4.5rem;      // 72px
+
+    // === FONT WEIGHTS ===
+    --font-thin: 100;
+    --font-extralight: 200;
+    --font-light: 300;
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
+    --font-black: 900;
+
+    // === LINE HEIGHTS ===
+    --leading-none: 1;
+    --leading-tight: 1.25;
+    --leading-snug: 1.375;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.625;
+    --leading-loose: 2;
+
+    // === LETTER SPACING ===
+    --tracking-tighter: -0.05em;
+    --tracking-tight: -0.025em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.025em;
+    --tracking-wider: 0.05em;
+    --tracking-widest: 0.1em;
+
+    // === TYPOGRAPHY COMPONENTS ===
+    // Display
+    --display-font: var(--font-display);
+    --display-weight: var(--font-bold);
+    --display-size: var(--text-5xl);
+    --display-line-height: var(--leading-tight);
+    --display-letter-spacing: var(--tracking-tight);
+
+    // Headings
+    --h1-size: var(--text-4xl);
+    --h1-weight: var(--font-bold);
+    --h1-line-height: var(--leading-tight);
+
+    --h2-size: var(--text-3xl);
+    --h2-weight: var(--font-semibold);
+    --h2-line-height: var(--leading-tight);
+
+    --h3-size: var(--text-2xl);
+    --h3-weight: var(--font-semibold);
+    --h3-line-height: var(--leading-snug);
+
+    --h4-size: var(--text-xl);
+    --h4-weight: var(--font-semibold);
+    --h4-line-height: var(--leading-snug);
+
+    --h5-size: var(--text-lg);
+    --h5-weight: var(--font-medium);
+    --h5-line-height: var(--leading-normal);
+
+    --h6-size: var(--text-base);
+    --h6-weight: var(--font-medium);
+    --h6-line-height: var(--leading-normal);
+
+    // Body
+    --body-font: var(--font-sans);
+    --body-size: var(--text-base);
+    --body-weight: var(--font-normal);
+    --body-line-height: var(--leading-normal);
+
+    // Small
+    --small-size: var(--text-sm);
+    --small-weight: var(--font-normal);
+    --small-line-height: var(--leading-normal);
+
+    // Caption
+    --caption-size: var(--text-xs);
+    --caption-weight: var(--font-normal);
+    --caption-line-height: var(--leading-normal);
+
+    // Code
+    --code-font: var(--font-mono);
+    --code-size: var(--text-sm);
+    --code-weight: var(--font-normal);
+    --code-line-height: var(--leading-normal);
+}
+
+// === TYPOGRAPHY CLASSES ===
+.display {
+    font-family: var(--display-font);
+    font-size: var(--display-size);
+    font-weight: var(--display-weight);
+    line-height: var(--display-line-height);
+    letter-spacing: var(--display-letter-spacing);
+}
+
+h1, .h1 {
+    font-family: var(--font-sans);
+    font-size: var(--h1-size);
+    font-weight: var(--h1-weight);
+    line-height: var(--h1-line-height);
+}
+
+h2, .h2 {
+    font-family: var(--font-sans);
+    font-size: var(--h2-size);
+    font-weight: var(--h2-weight);
+    line-height: var(--h2-line-height);
+}
+
+h3, .h3 {
+    font-family: var(--font-sans);
+    font-size: var(--h3-size);
+    font-weight: var(--h3-weight);
+    line-height: var(--h3-line-height);
+}
+
+h4, .h4 {
+    font-family: var(--font-sans);
+    font-size: var(--h4-size);
+    font-weight: var(--h4-weight);
+    line-height: var(--h4-line-height);
+}
+
+h5, .h5 {
+    font-family: var(--font-sans);
+    font-size: var(--h5-size);
+    font-weight: var(--h5-weight);
+    line-height: var(--h5-line-height);
+}
+
+h6, .h6 {
+    font-family: var(--font-sans);
+    font-size: var(--h6-size);
+    font-weight: var(--h6-weight);
+    line-height: var(--h6-line-height);
+}
+
+body {
+    font-family: var(--body-font);
+    font-size: var(--body-size);
+    font-weight: var(--body-weight);
+    line-height: var(--body-line-height);
+}
+
+.text-small {
+    font-size: var(--small-size);
+    font-weight: var(--small-weight);
+    line-height: var(--small-line-height);
+}
+
+.text-caption {
+    font-size: var(--caption-size);
+    font-weight: var(--caption-weight);
+    line-height: var(--caption-line-height);
+}
+
+code, .code {
+    font-family: var(--code-font);
+    font-size: var(--code-size);
+    font-weight: var(--code-weight);
+    line-height: var(--code-line-height);
+}

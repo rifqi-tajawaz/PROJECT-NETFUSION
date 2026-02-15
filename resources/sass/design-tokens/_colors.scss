@@ -1,0 +1,159 @@
+// ============================================================
+// DESIGN TOKENS - COLORS
+// Based on Dribbble Finance Dashboard & Workflow Automation
+// ============================================================
+
+:root {
+    // === PRIMARY COLORS ===
+    // Blue - Trust, reliability, professionalism
+    --primary-50: #f0f9ff;
+    --primary-100: #e0f2fe;
+    --primary-200: #bae6fd;
+    --primary-300: #7dd3fc;
+    --primary-400: #38bdf8;
+    --primary-500: #0ea5e9; // Main primary
+    --primary-600: #0284c7;
+    --primary-700: #0369a1;
+    --primary-800: #075985;
+    --primary-900: #0c4a6e;
+
+    // === ACCENT COLORS ===
+    // Purple - Creativity, innovation, modern
+    --accent-50: #faf5ff;
+    --accent-100: #f3e8ff;
+    --accent-200: #e9d5ff;
+    --accent-300: #d8b4fe;
+    --accent-400: #c084fc;
+    --accent-500: #a855f7; // Main accent
+    --accent-600: #9333ea;
+    --accent-700: #7e22ce;
+    --accent-800: #6b21a8;
+    --accent-900: #581c87;
+
+    // === SEMANTIC COLORS ===
+    // Success - Green
+    --success-50: #f0fdf4;
+    --success-100: #dcfce7;
+    --success-200: #bbf7d0;
+    --success-300: #86efac;
+    --success-400: #4ade80;
+    --success-500: #22c55e; // Main success
+    --success-600: #16a34a;
+    --success-700: #15803d;
+    --success-800: #166534;
+    --success-900: #14532d;
+
+    // Warning - Orange
+    --warning-50: #fffbeb;
+    --warning-100: #fef3c7;
+    --warning-200: #fde68a;
+    --warning-300: #fcd34d;
+    --warning-400: #fbbf24;
+    --warning-500: #f59e0b; // Main warning
+    --warning-600: #d97706;
+    --warning-700: #b45309;
+    --warning-800: #92400e;
+    --warning-900: #78350f;
+
+    // Error - Red
+    --error-50: #fef2f2;
+    --error-100: #fee2e2;
+    --error-200: #fecaca;
+    --error-300: #fca5a5;
+    --error-400: #f87171;
+    --error-500: #ef4444; // Main error
+    --error-600: #dc2626;
+    --error-700: #b91c1c;
+    --error-800: #991b1b;
+    --error-900: #7f1d1d;
+
+    // Info - Light Blue
+    --info-50: #eff6ff;
+    --info-100: #dbeafe;
+    --info-200: #bfdbfe;
+    --info-300: #93c5fd;
+    --info-400: #60a5fa;
+    --info-500: #3b82f6; // Main info
+    --info-600: #2563eb;
+    --info-700: #1d4ed8;
+    --info-800: #1e40af;
+    --info-900: #1e3a8a;
+
+    // === NEUTRAL COLORS ===
+    --white: #ffffff;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-800: #1f2937;
+    --gray-900: #111827;
+    --black: #000000;
+
+    // === DARK THEME COLORS ===
+    // Slate-based dark theme (modern, premium look)
+    --dark-bg-primary: #0f172a; // Slate 900
+    --dark-bg-secondary: #1e293b; // Slate 800
+    --dark-bg-tertiary: #334155; // Slate 700
+    --dark-bg-elevated: #475569; // Slate 600
+
+    --dark-text-primary: #f1f5f9; // Slate 100
+    --dark-text-secondary: #cbd5e1; // Slate 300
+    --dark-text-tertiary: #94a3b8; // Slate 400
+    --dark-text-disabled: #64748b; // Slate 500
+
+    --dark-border-subtle: rgba(148, 163, 184, 0.1);
+    --dark-border-default: rgba(148, 163, 184, 0.2);
+    --dark-border-strong: rgba(148, 163, 184, 0.3);
+
+    // === GRADIENTS ===
+    --gradient-primary: linear-gradient(135deg, var(--primary-500), var(--accent-500));
+    --gradient-success: linear-gradient(135deg, var(--success-500), var(--primary-500));
+    --gradient-warning: linear-gradient(135deg, var(--warning-500), var(--error-500));
+    --gradient-purple: linear-gradient(135deg, var(--accent-500), #ec4899);
+    --gradient-ocean: linear-gradient(135deg, #06b6d4, var(--primary-500));
+    --gradient-sunset: linear-gradient(135deg, #f97316, var(--error-500));
+
+    // === GLASSMORPHISM ===
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-bg-hover: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-border-hover: rgba(255, 255, 255, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --glass-blur: blur(12px);
+
+    // === COLOR MAPPINGS ===
+    --color-bg: var(--dark-bg-primary);
+    --color-bg-secondary: var(--dark-bg-secondary);
+    --color-bg-tertiary: var(--dark-bg-tertiary);
+    --color-text: var(--dark-text-primary);
+    --color-text-secondary: var(--dark-text-secondary);
+    --color-text-muted: var(--dark-text-tertiary);
+    --color-border: var(--dark-border-default);
+    --color-primary: var(--primary-500);
+    --color-accent: var(--accent-500);
+    --color-success: var(--success-500);
+    --color-warning: var(--warning-500);
+    --color-error: var(--error-500);
+    --color-info: var(--info-500);
+}
+
+// Light theme overrides
+[data-theme="light"] {
+    --color-bg: var(--gray-50);
+    --color-bg-secondary: var(--white);
+    --color-bg-tertiary: var(--gray-100);
+    --color-text: var(--gray-900);
+    --color-text-secondary: var(--gray-600);
+    --color-text-muted: var(--gray-500);
+    --color-border: var(--gray-200);
+
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-bg-hover: rgba(255, 255, 255, 0.9);
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --glass-border-hover: rgba(0, 0, 0, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+}

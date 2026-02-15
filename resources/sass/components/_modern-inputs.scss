@@ -1,0 +1,264 @@
+// ============================================================
+// MODERN COMPONENT - INPUTS & FORMS
+// ============================================================
+
+.input-group {
+    .input-label {
+        display: block;
+        font-size: var(--text-sm);
+        font-weight: var(--font-medium);
+        color: var(--color-text);
+        margin-bottom: var(--spacing-2);
+    }
+
+    .input-wrapper {
+        position: relative;
+
+        .input-icon {
+            position: absolute;
+            left: var(--spacing-3);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-muted);
+            pointer-events: none;
+        }
+
+        .input-clear {
+            position: absolute;
+            right: var(--spacing-3);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+
+            &:hover {
+                color: var(--color-text);
+            }
+        }
+    }
+
+    .input-hint {
+        font-size: var(--text-xs);
+        color: var(--color-text-muted);
+        margin-top: var(--spacing-2);
+    }
+
+    .input-error {
+        font-size: var(--text-xs);
+        color: var(--color-error);
+        margin-top: var(--spacing-2);
+    }
+}
+
+// === TEXT INPUT ===
+.input {
+    width: 100%;
+    padding: var(--input-padding-y) var(--input-padding-x);
+    font-size: var(--text-sm);
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-input);
+    transition: all 0.2s;
+
+    &::placeholder {
+        color: var(--color-text-muted);
+    }
+
+    &:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+    }
+
+    &:disabled {
+        background: var(--color-bg-tertiary);
+        color: var(--color-text-muted);
+        cursor: not-allowed;
+    }
+
+    &.input-error {
+        border-color: var(--color-error);
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+        }
+    }
+
+    &.input-success {
+        border-color: var(--color-success);
+
+        &:focus {
+            box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+        }
+    }
+
+    // === WITH ICON ===
+    &.input-with-icon {
+        padding-left: var(--spacing-10);
+    }
+
+    &.input-with-clear {
+        padding-right: var(--spacing-10);
+    }
+
+    // === SIZES ===
+    &.input-sm {
+        padding: var(--spacing-1_5) var(--spacing-2_5);
+        font-size: var(--text-xs);
+    }
+
+    &.input-lg {
+        padding: var(--spacing-3) var(--spacing-4);
+        font-size: var(--text-base);
+    }
+}
+
+// === SELECT ===
+.select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%239ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E");
+    background-position: right var(--spacing-3) center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: var(--spacing-10);
+
+    &.select-sm {
+        background-size: 1.25em 1.25em;
+        padding-right: var(--spacing-8);
+    }
+}
+
+// === TEXTAREA ===
+.textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+// === CHECKBOX ===
+.checkbox {
+    @extend .input;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 2px solid var(--color-border);
+    cursor: pointer;
+    position: relative;
+
+    &:checked {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+    }
+}
+
+// === RADIO ===
+.radio {
+    @extend .input;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    border: 2px solid var(--color-border);
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+
+    &:checked {
+        border-color: var(--color-primary);
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 10px;
+            height: 10px;
+            background: var(--color-primary);
+            border-radius: 50%;
+        }
+    }
+}
+
+// === SWITCH ===
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--color-bg-tertiary);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-full);
+        transition: all 0.2s;
+
+        &::before {
+            position: absolute;
+            content: '';
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+    }
+
+    input:checked + .slider {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+
+        &::before {
+            transform: translateX(20px);
+        }
+    }
+}
+
+// === SEARCH INPUT ===
+.search-input {
+    .input-wrapper {
+        .input {
+            padding-left: var(--spacing-10);
+            border-radius: var(--radius-full);
+            background: var(--color-bg-secondary);
+
+            &:focus {
+                background: var(--color-bg);
+            }
+        }
+
+        .input-icon {
+            left: var(--spacing-4);
+        }
+    }
+}

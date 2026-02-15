@@ -1,0 +1,60 @@
+/* --- NetFusion UI System --- */
+
+.bg-brand {
+    background-color: $brand-primary !important;
+}
+
+.text-brand {
+    color: $brand-primary !important;
+}
+
+.border-brand {
+    border-color: $brand-primary !important;
+}
+
+.bg-brand-soft {
+    background-color: $brand-soft !important;
+}
+
+.shadow-brand {
+    box-shadow: 0 10px 30px rgba(95, 45, 237, 0.3);
+}
+
+.glow-effect:hover {
+    box-shadow: 0 0 20px rgba(95, 45, 237, 0.5);
+}
+
+.transition-hover {
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-3px);
+    }
+}
+
+.backdrop-blur {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.rounded-4 {
+    border-radius: 1rem !important;
+}
+
+.btn-white {
+    background: white;
+    color: $brand-primary;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+
+    &:hover {
+        background: #f8f9fa;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+}
+
+@media (max-width: 991.98px) {
+    .banner-watermark {
+        display: none !important;
+    }
+}

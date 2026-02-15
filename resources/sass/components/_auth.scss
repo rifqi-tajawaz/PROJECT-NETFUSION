@@ -1,0 +1,35 @@
+/* --- Authentication Screens --- */
+
+.auth-cover-left,
+.auth-cover-right {
+    display: flex;
+    background-color: #ffffff;
+    min-height: 100vh;
+}
+
+.auth-social-login {
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.bg-login,
+.bg-forgot-password,
+.bg-reset-password {
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-login {
+    background-image: url('../images/auth/login1.png');
+}
+
+.bg-forgot-password {
+    background-image: url('../images/auth/forgot-password1.png');
+}
+
+.bg-reset-password {
+    background-image: url('../images/auth/reset-password1.png');
+}

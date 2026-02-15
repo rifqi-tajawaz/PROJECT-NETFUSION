@@ -1,0 +1,63 @@
+/* Wireless Link Planner Print Styles */
+@media print {
+
+    /* Hide global layout elements */
+    .sidebar-wrapper,
+    .top-header,
+    .topbar,
+    .footer,
+    .overlay,
+    .page-header,
+    .btn,
+    form {
+        display: none !important;
+    }
+
+    /* Hide the input column specifically */
+    .col-lg-4 {
+        display: none !important;
+    }
+
+    /* Reset main content containers */
+    body,
+    .main-wrapper,
+    .content-wrapper,
+    .container-fluid,
+    .row {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    /* Force result column to full width */
+    .col-lg-8 {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Ensure results are visible and clear */
+    #results-container {
+        display: block !important;
+        position: static !important;
+    }
+
+    /* Remove card shadows/borders for cleaner print */
+    .card {
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    /* Ensure text is black */
+    body {
+        color: black !important;
+    }
+}
+
+.dashed-border {
+    border-style: dashed !important;
+    border-width: 2px !important;
+}

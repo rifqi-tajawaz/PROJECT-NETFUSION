@@ -1,0 +1,39 @@
+/* --- Typography & Navigation Aids --- */
+
+.breadcrumb-title {
+    font-size: 20px;
+    border-right: 1.5px solid #aaa4a4;
+}
+
+.page-breadcrumb {
+    .breadcrumb {
+        li.breadcrumb-item {
+            font-size: 16px;
+        }
+    }
+
+    .breadcrumb-item+.breadcrumb-item {
+        &::before {
+            display: inline-block;
+            padding-right: .5rem;
+            font-family: 'Material Icons Outlined';
+            content: "\e88a";
+        }
+    }
+}
+
+.f-14 {
+    font-size: 14px;
+}
+
+.font-22 {
+    font-size: 45px;
+}
+
+.font-text1 {
+    font-size: 0.8rem;
+}
+
+.font-text2 {
+    font-size: 0.7rem;
+}

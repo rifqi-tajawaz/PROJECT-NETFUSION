@@ -1,0 +1,55 @@
+/* --- Layout & Global Structure --- */
+
+/* Main Wrapper - Forced Layout Stability */
+.main-wrapper {
+    margin-top: 70px !important;
+    /* Force overlap clearance */
+    padding-bottom: 0px;
+    margin-left: 260px;
+    /* Default Desktop */
+    transition: all 0.3s ease-in-out;
+
+    /* Enforce Desktop Width */
+    @media (min-width: 1200px) {
+        margin-left: 260px;
+
+        /* When sidebar is toggled/collapsed */
+        .toggled & {
+            margin-left: 70px !important;
+        }
+    }
+
+    .main-content {
+        padding: 1.5rem;
+        min-height: calc(100vh - 70px);
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+// .page-footer removed (replaced by clean flex footer)
+
+.separator {
+    display: flex;
+    align-items: center;
+
+    .line {
+        height: 1px;
+        flex: 1;
+        background-color: #dee2e6;
+    }
+
+    p {
+        padding: 0 1rem;
+    }
+}
+
+.welcome-back-img {
+    @media (min-width:1280px) {
+        position: absolute;
+        bottom: 0;
+        right: 2rem;
+    }
+
+    position: relative;
+}

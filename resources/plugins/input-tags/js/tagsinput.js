@@ -391,6 +391,9 @@
               if ($('.typeahead, .twitter-typeahead', self.$container).length === 0) {
                 self.add(self.$input.val());
                 self.$input.val('');
+              } else if ( !$('.typeahead, .twitter-typeahead', self.$container).find('.tt-menu, .tt-dropdown-menu').is(':visible') && !$('.typeahead', self.$container).is(':visible') ) {
+                self.add(self.$input.val());
+                self.$input.val('');
               }
           }, self));
         }

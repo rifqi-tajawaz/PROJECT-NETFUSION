@@ -8,7 +8,6 @@ use Illuminate\Support\ServiceProvider;
 
 // Models & Policies
 use App\Models\User;
-use App\Policies\UserPolicy;
 
 // Contracts
 use App\Contracts\Auth\AuthenticationManagerInterface;

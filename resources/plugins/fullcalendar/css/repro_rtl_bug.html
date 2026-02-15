@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chrome RTL Scroll Bug Repro</title>
+<style>
+  body {
+    font-family: sans-serif;
+    margin: 20px;
+  }
+
+  /* FullCalendar Structure Simulation */
+  .fc {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    width: 300px;
+    height: 300px;
+  }
+
+  /* The container with the issue */
+  .fc-scroller-harness {
+    position: relative;
+    overflow: hidden;
+    flex: 1; /* liquid height */
+    background: #f0f0f0;
+  }
+
+  /* The scroller itself */
+  .fc-scroller {
+    /* Simulating liquid scroller */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    background: #fff;
+  }
+
+  .content {
+    /* Wide content to force horizontal scroll */
+    width: 600px;
+    height: 600px; /* Tall content to force vertical scroll */
+    background: linear-gradient(135deg, #eee 25%, transparent 25%) -50px 0,
+                linear-gradient(225deg, #eee 25%, transparent 25%) -50px 0,
+                linear-gradient(315deg, #eee 25%, transparent 25%),
+                linear-gradient(45deg, #eee 25%, transparent 25%);
+    background-size: 100px 100px;
+    background-color: #fff;
+    padding: 10px;
+  }
+
+  /* RTL Context (simulating .fc-direction-rtl on parent) */
+  .rtl-context {
+    direction: rtl;
+  }
+
+  /* The Hack Implementation */
+  .hack-applied .fc-scroller-harness {
+    direction: ltr; /* Force LTR on harness */
+  }
+  .hack-applied .fc-scroller-harness > .fc-scroller {
+    direction: rtl; /* Revert to RTL on scroller */
+  }
+
+  /* Utilities */
+  .controls {
+    margin-bottom: 20px;
+  }
+  .status {
+    margin-top: 10px;
+    padding: 10px;
+    background: #eef;
+    border: 1px solid #ccd;
+  }
+</style>
+</head>
+<body>
+
+<h1>Chrome RTL Scroll Bug Repro</h1>
+<p>
+  This demonstrates the issue where Chrome may miscalculate the scroller's position in RTL mode when `overflow: hidden` is on the parent.
+  The hack forces `direction: ltr` on the harness and reverts to `rtl` on the scroller.
+</p>
+
+<div class="controls">
+  <label>
+    <input type="checkbox" id="hackToggle"> Apply Hack (Force LTR on harness)
+  </label>
+</div>
+
+<div class="rtl-context">
+  <h3>RTL Context</h3>
+  <div class="fc" id="calendar">
+    <div style="padding: 10px; background: #ddd;">Header</div>
+    <div class="fc-scroller-harness">
+      <div class="fc-scroller" id="scroller">
+        <div class="content">
+          <p>Content is wide and tall.</p>
+          <p>Try scrolling horizontally and vertically.</p>
+          <p>Observe the scrollbar placement and content alignment.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="status" id="status">
+  Current State: Pure RTL (Buggy in some Chrome versions)
+</div>
+
+<script>
+  const toggle = document.getElementById('hackToggle');
+  const calendar = document.getElementById('calendar');
+  const statusDiv = document.getElementById('status');
+  const scroller = document.getElementById('scroller');
+
+  toggle.addEventListener('change', (e) => {
+    if (e.target.checked) {
+      calendar.classList.add('hack-applied');
+      statusDiv.textContent = 'Current State: Hack Applied (LTR Harness, RTL Scroller)';
+    } else {
+      calendar.classList.remove('hack-applied');
+      statusDiv.textContent = 'Current State: Pure RTL (Buggy in some Chrome versions)';
+    }
+
+    // Log scroll values
+    console.log('ScrollLeft:', scroller.scrollLeft);
+  });
+</script>
+
+</body>
+</html>

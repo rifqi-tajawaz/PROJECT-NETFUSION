@@ -13558,7 +13558,7 @@ var FullCalendar = (function (exports) {
         if (snapsPerSlot === null) {
             snapDuration = slotDuration;
             snapsPerSlot = 1;
-            // TODO: say warning?
+            console.warn('snapDuration must evenly divide slotDuration. The default slotDuration will be used.');
         }
         return { snapDuration: snapDuration, snapsPerSlot: snapsPerSlot };
     }

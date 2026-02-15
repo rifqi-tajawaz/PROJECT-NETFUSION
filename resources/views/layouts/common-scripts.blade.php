@@ -6,9 +6,6 @@
 <!--plugins-->
 <!-- <script src="{{ URL::asset('build/plugins/simplebar/js/simplebar.min.js') }}"></script> -->
 <!-- <script src="{{ URL::asset('build/plugins/metismenu/metisMenu.min.js') }}"></script> -->
-<script src="{{ URL::asset('build/plugins/perfect-scrollbar/js/perfect-scrollbar.js') }}"></script>
-
-@stack('scripts')
 
 <!-- NetFusion Master Script -->
 @vite(['resources/js/main.js'])

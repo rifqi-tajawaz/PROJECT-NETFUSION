@@ -20,6 +20,10 @@ import SimpleBar from 'simplebar';
 import 'simplebar/dist/simplebar.css';
 window.SimpleBar = SimpleBar;
 
+import PerfectScrollbar from 'perfect-scrollbar';
+import 'perfect-scrollbar/css/perfect-scrollbar.css';
+window.PerfectScrollbar = PerfectScrollbar;
+
 const NetFusionUI = {
   // --- Initialization ---
   init() {
@@ -468,8 +472,69 @@ window.NetFusionUI = NetFusionUI;
 // --- Global API ---
 import { copyText } from './utils/clipboard';
 window.copyText = copyText;
+
 window.NetFusion = {
-  copyToClipboard: copyText // Backward compatibility alias
+  copyToClipboard: copyText, // Backward compatibility alias
+
+  /**
+   * Toggle Port Knocking Method UI
+   */
+  toggleMethod: function () {
+    const mode = document.getElementById('knockMode').value;
+    const icmp = document.getElementById('method-icmp');
+    const port = document.getElementById('method-port');
+
+    if (mode === 'icmp') {
+      icmp.classList.remove('d-none');
+      port.classList.add('d-none');
+    } else {
+      icmp.classList.add('d-none');
+      port.classList.remove('d-none');
+    }
+  },
+
+  /**
+   * Handle Port Knocking Generation (Via Backend)
+   */
+  generatePortKnocking: function (url, formId = 'pkForm') {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="button"]');
+    const originalBtnContent = submitBtn ? submitBtn.innerHTML : '';
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Generating...';
+    }
+
+    const output = document.getElementById('scriptOutput');
+    output.innerHTML = '<div class="d-flex align-items-center justify-content-center text-white-50 gap-2 w-100 h-100 p-4"><div class="spinner-border spinner-border-sm text-primary" role="status"></div> <span>Generating secure script...</span></div>';
+
+    const formData = new FormData(form);
+    const jsonData = Object.fromEntries(formData.entries());
+
+    axios.post(url, jsonData)
+      .then(function (response) {
+        output.innerHTML = `<pre class="m-0 p-4 text-warning font-monospace small" style="white-space: pre-wrap;">${response.data.script}</pre>`;
+      })
+      .catch(function (error) {
+        console.error(error);
+        let msg = error.response?.data?.message || "Failed to generate script.";
+        output.innerHTML = `<span class="text-danger"># Error: ${msg}</span>`;
+      })
+      .finally(function () {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnContent;
+        }
+      });
+  }
 };
 
 export { NetFusionUI };

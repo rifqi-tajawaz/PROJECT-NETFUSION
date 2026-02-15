@@ -153,8 +153,5 @@
 @endsection
 
 @push('scripts')
-    <!--plugins-->
-    <script src="{{ URL::asset('build/plugins/metismenu/metisMenu.min.js') }}"></script>
-    <script src="{{ URL::asset('build/plugins/simplebar/js/simplebar.min.js') }}"></script>
     @vite(['resources/js/pages/support/ticket.js'])
 @endpush

@@ -14,7 +14,6 @@ $(function () {
     new PerfectScrollbar(".search-content")
   }
 
-  // new PerfectScrollbar(".mega-menu-widgets")
 
 
 

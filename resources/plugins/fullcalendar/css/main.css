@@ -307,6 +307,7 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 .fc .fc-scroller {
     -webkit-overflow-scrolling: touch;
     position: relative; /* for abs-positioned elements within */
+    border: 0 !important;
   }
 .fc .fc-scroller-liquid {
     height: 100%;

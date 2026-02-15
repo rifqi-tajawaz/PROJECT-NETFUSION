@@ -10827,7 +10827,7 @@ var FullCalendar = (function (exports) {
             var _this = _super.call(this, settings) || this;
             // internal state
             _this.draggingSegEl = null;
-            _this.draggingSeg = null; // TODO: rename to resizingSeg? subjectSeg?
+            _this.resizingSeg = null;
             _this.eventRange = null;
             _this.relevantEvents = null;
             _this.validMutation = null;
@@ -10848,7 +10848,7 @@ var FullCalendar = (function (exports) {
                 _this.relevantEvents = getRelevantEvents(context.getCurrentData().eventStore, _this.eventRange.instance.instanceId);
                 var segEl = _this.querySegEl(ev);
                 _this.draggingSegEl = segEl;
-                _this.draggingSeg = getElSeg(segEl);
+                _this.resizingSeg = getElSeg(segEl);
                 context.calendarApi.unselect();
                 context.emitter.trigger('eventResizeStart', {
                     el: segEl,
@@ -10943,7 +10943,7 @@ var FullCalendar = (function (exports) {
                     context.emitter.trigger('_noEventResize');
                 }
                 // reset all internal state
-                _this.draggingSeg = null;
+                _this.resizingSeg = null;
                 _this.relevantEvents = null;
                 _this.validMutation = null;
                 // okay to keep eventInstance around. useful to set it in handlePointerDown

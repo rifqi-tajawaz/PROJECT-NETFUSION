@@ -8618,7 +8618,7 @@ var FullCalendar = (function (exports) {
                 return 0;
             }
             else {
-                return this.el.offsetHeight - this.el.clientHeight; // only works because we guarantee no borders. TODO: add to CSS with important?
+                return this.el.offsetHeight - this.el.clientHeight; // only works because we guarantee no borders
             }
         };
         Scroller.prototype.getYScrollbarWidth = function () {
@@ -8626,7 +8626,7 @@ var FullCalendar = (function (exports) {
                 return 0;
             }
             else {
-                return this.el.offsetWidth - this.el.clientWidth; // only works because we guarantee no borders. TODO: add to CSS with important?
+                return this.el.offsetWidth - this.el.clientWidth; // only works because we guarantee no borders
             }
         };
         return Scroller;

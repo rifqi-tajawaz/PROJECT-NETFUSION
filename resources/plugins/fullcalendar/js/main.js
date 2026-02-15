@@ -8155,7 +8155,7 @@ var FullCalendar = (function (exports) {
             };
             var classNames = [CLASS_NAME].concat(getDayClassNames(dateMeta, theme), props.extraClassNames || []);
             var text = dateEnv.format(date, props.dayHeaderFormat);
-            var hookProps = __assign(__assign(__assign(__assign({ // TODO: make this public?
+            var hookProps = this.hookProps = __assign(__assign(__assign(__assign({
                 date: date }, dateMeta), { view: viewApi }), props.extraHookProps), { text: text });
             return (createElement(RenderHook, { hookProps: hookProps, classNames: options.dayHeaderClassNames, content: options.dayHeaderContent, defaultContent: renderInner, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, function (rootElRef, customClassNames, innerElRef, innerContent) { return (createElement("th", __assign({ ref: rootElRef, className: classNames.concat(customClassNames).join(' '), colSpan: props.colSpan }, props.extraDataAttrs),
                 createElement("div", { className: 'fc-scrollgrid-sync-inner' },
@@ -8618,7 +8618,7 @@ var FullCalendar = (function (exports) {
                 return 0;
             }
             else {
-                return this.el.offsetHeight - this.el.clientHeight; // only works because we guarantee no borders. TODO: add to CSS with important?
+                return this.el.offsetHeight - this.el.clientHeight; // only works because we guarantee no borders
             }
         };
         Scroller.prototype.getYScrollbarWidth = function () {
@@ -8626,7 +8626,7 @@ var FullCalendar = (function (exports) {
                 return 0;
             }
             else {
-                return this.el.offsetWidth - this.el.clientWidth; // only works because we guarantee no borders. TODO: add to CSS with important?
+                return this.el.offsetWidth - this.el.clientWidth; // only works because we guarantee no borders
             }
         };
         return Scroller;
@@ -12338,7 +12338,8 @@ var FullCalendar = (function (exports) {
         // Hit System
         // ----------------------------------------------------------------------------------------------------
         Table.prototype.prepareHits = function () {
-            false, true // vertical
+            var _this = this;
+            this.rowPositions = new PositionCache(this.rootEl, this.props.cells.map(function (_, i) { return _this.rowRefs.currentMap[i].rootElRef.current; }), false, true // vertical
             );
             this.colPositions = new PositionCache(this.rootEl, this.rowRefs.currentMap[0].getCellEls(), // cell els in first row
             true, // horizontal
@@ -12649,8 +12650,7 @@ var FullCalendar = (function (exports) {
             var _a = this, props = _a.props, context = _a.context;
             return (createElement("div", { className: 'fc-timegrid-slots', ref: this.rootElRef },
                 createElement("table", { className: context.theme.getClass('table'), style: {
-                        minWidth: props.tableMinWidth,
-                        width: props.clientWidth,
+                        width: '100%',
                         height: props.minHeight
                     } },
                     props.tableColGroupNode /* relies on there only being a single <col> for the axis */,
@@ -13434,8 +13434,7 @@ var FullCalendar = (function (exports) {
             var eventResizeByRow = this.splitEventResize(props.eventResize, colCnt);
             return (createElement("div", { className: 'fc-timegrid-cols', ref: this.rootElRef },
                 createElement("table", { style: {
-                        minWidth: props.tableMinWidth,
-                        width: props.clientWidth
+                        width: '100%'
                     } },
                     props.tableColGroupNode,
                     createElement("tbody", null,
@@ -13508,7 +13507,6 @@ var FullCalendar = (function (exports) {
             var _a = this, props = _a.props, state = _a.state;
             return (createElement("div", { className: 'fc-timegrid-body', ref: props.rootElRef, style: {
                     // these props are important to give this wrapper correct dimensions for interactions
-                    // TODO: if we set it here, can we avoid giving to inner tables?
                     width: props.clientWidth,
                     minWidth: props.tableMinWidth
                 } },

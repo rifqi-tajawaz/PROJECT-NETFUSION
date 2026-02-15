@@ -15,6 +15,7 @@ use App\Http\Controllers\Support\FaqPublicController;
 use App\Http\Controllers\Support\TicketController;
 use App\Http\Controllers\TwoFactorController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,10 +31,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Home page
-Route::get('/', fn () => Auth::check()
-    ? redirect()->route('mikrotik-suite.dashboard')
-    : redirect()->route('login')
-);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Authentication Routes
 Route::middleware(['throttle:5,1'])->group(function () {
@@ -141,3 +139,6 @@ Route::middleware(['auth'])->group(function () {
 
 // Load NetFusion Routes
 require __DIR__ . '/netfusion.php';
+
+// Catch-all Route
+Route::get('{any}', [HomeController::class, 'root'])->where('any', '.*');

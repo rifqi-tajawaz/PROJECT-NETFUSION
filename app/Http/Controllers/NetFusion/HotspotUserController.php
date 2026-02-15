@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\NetFusion;
 
 use App\Http\Controllers\Controller;
@@ -8,19 +10,19 @@ use App\Http\Requests\NetFusion\UpdateHotspotUserRequest;
 use App\Jobs\ProcessHotspotBatch;
 use App\Services\NetFusion\Modules\HotspotService;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class HotspotUserController extends Controller
 {
-    protected $hotspotService;
+    public function __construct(
+        protected HotspotService $hotspotService
+    ) {}
 
-    public function __construct(HotspotService $hotspotService)
-    {
-        $this->hotspotService = $hotspotService;
-    }
-
-    public function index(Request $request)
+    public function index(Request $request): View|RedirectResponse
     {
         $users = [];
         $profiles = [];
@@ -61,10 +63,11 @@ class HotspotUserController extends Controller
             'selectedProfile' => $selectedProfile,
             'selectedComment' => $selectedComment,
             'showExpired' => $showExpired,
+            'bulkResetMsg' => __('netfusion.confirm_reset'),
         ], $stats));
     }
 
-    public function create()
+    public function create(): View
     {
         $profiles = [];
         $servers = [];
@@ -78,7 +81,7 @@ class HotspotUserController extends Controller
         return view('netfusion.users.add', compact('profiles', 'servers'));
     }
 
-    public function store(StoreHotspotUserRequest $request)
+    public function store(StoreHotspotUserRequest $request): RedirectResponse
     {
         try {
             $data = [
@@ -97,7 +100,7 @@ class HotspotUserController extends Controller
                 $data['limit-uptime'] = $request->limit_uptime;
 
             if ($request->filled('limit_bytes_total')) {
-                $data['limit-bytes-total'] = $this->convertToBytes($request->limit_bytes_total, $request->limit_bytes_unit ?? 'MB');
+                $data['limit-bytes-total'] = $this->convertToBytes((int) $request->limit_bytes_total, $request->limit_bytes_unit ?? 'MB');
             }
 
             $this->hotspotService->addUser($data);
@@ -108,7 +111,7 @@ class HotspotUserController extends Controller
         }
     }
 
-    public function generate()
+    public function generate(): View
     {
         $profiles = [];
         $servers = [];
@@ -122,7 +125,7 @@ class HotspotUserController extends Controller
         return view('netfusion.users.generate', compact('profiles', 'servers'));
     }
 
-    public function storeBatch(Request $request)
+    public function storeBatch(Request $request): RedirectResponse
     {
         $request->validate([
             'qty' => 'required|integer|min:1|max:500',
@@ -135,9 +138,9 @@ class HotspotUserController extends Controller
             // Dispatch Job
             ProcessHotspotBatch::dispatch(
                 $request->all(),
-                $request->qty,
+                (int) $request->qty,
                 Session::get('router_session'),
-                \Illuminate\Support\Facades\Auth::user()
+                Auth::user()
             );
 
             return redirect()->route('mikrotik-suite.netfusion.users.index')
@@ -148,7 +151,7 @@ class HotspotUserController extends Controller
         }
     }
 
-    public function edit($id)
+    public function edit(string $id): View|RedirectResponse
     {
         $user = null;
         $profiles = [];
@@ -170,7 +173,7 @@ class HotspotUserController extends Controller
         return view('netfusion.users.edit', compact('user', 'profiles', 'servers'));
     }
 
-    public function update(UpdateHotspotUserRequest $request, $id)
+    public function update(UpdateHotspotUserRequest $request, string $id): RedirectResponse
     {
         try {
             $updateData = ['profile' => $request->profile];
@@ -186,7 +189,7 @@ class HotspotUserController extends Controller
             $updateData['limit-uptime'] = $request->limit_uptime ?? '';
 
             if ($request->filled('limit_bytes_total')) {
-                $updateData['limit-bytes-total'] = $this->convertToBytes($request->limit_bytes_total, $request->limit_bytes_unit ?? 'MB');
+                $updateData['limit-bytes-total'] = $this->convertToBytes((int) $request->limit_bytes_total, $request->limit_bytes_unit ?? 'MB');
             } else {
                 $updateData['limit-bytes-total'] = '';
             }
@@ -198,7 +201,7 @@ class HotspotUserController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy(string $id): RedirectResponse
     {
         try {
             $this->hotspotService->removeUser($id);
@@ -208,7 +211,7 @@ class HotspotUserController extends Controller
         }
     }
 
-    public function bulkAction(Request $request)
+    public function bulkAction(Request $request): RedirectResponse
     {
         $request->validate([
             'ids' => 'required|array',
@@ -226,20 +229,13 @@ class HotspotUserController extends Controller
         try {
             foreach ($ids as $id) {
                 try {
-                    switch ($action) {
-                        case 'delete':
-                            $this->hotspotService->removeUser($id);
-                            break;
-                        case 'disable':
-                            $this->hotspotService->toggleUser($id, false);
-                            break;
-                        case 'enable':
-                            $this->hotspotService->toggleUser($id, true);
-                            break;
-                        case 'reset':
-                            $this->hotspotService->resetCounters($id);
-                            break;
-                    }
+                    match ($action) {
+                        'delete' => $this->hotspotService->removeUser($id),
+                        'disable' => $this->hotspotService->toggleUser($id, false),
+                        'enable' => $this->hotspotService->toggleUser($id, true),
+                        'reset' => $this->hotspotService->resetCounters($id),
+                        default => throw new Exception('Invalid action'),
+                    };
                     $count++;
                 } catch (Exception $e) {
                     $errors++;
@@ -256,7 +252,7 @@ class HotspotUserController extends Controller
         }
     }
 
-    public function destroyByComment(Request $request)
+    public function destroyByComment(Request $request): RedirectResponse
     {
         $request->validate(['comment' => 'required|string']);
         $comment = $request->comment;
@@ -284,7 +280,7 @@ class HotspotUserController extends Controller
         }
     }
 
-    public function batches()
+    public function batches(): View
     {
         $batches = [];
 
@@ -329,18 +325,13 @@ class HotspotUserController extends Controller
         return view('netfusion.users.batches', compact('batches'));
     }
 
-    private function convertToBytes($value, $unit)
+    private function convertToBytes(int $value, string $unit): int
     {
-        $value = (int) $value;
-        switch ($unit) {
-            case 'GB':
-                return $value * 1024 * 1024 * 1024;
-            case 'MB':
-                return $value * 1024 * 1024;
-            case 'KB':
-                return $value * 1024;
-            default:
-                return $value;
-        }
+        return match ($unit) {
+            'GB' => $value * 1024 * 1024 * 1024,
+            'MB' => $value * 1024 * 1024,
+            'KB' => $value * 1024,
+            default => $value,
+        };
     }
 }

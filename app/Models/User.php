@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\User\HasPresentation;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -208,7 +209,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function setPasswordExpiration(): bool
     {
-        $expirationDays = config('auth.security.password_expiration_days', 90);
+        $expirationDays = (int) config('auth.security.password_expiration_days', 90);
 
         if ($expirationDays <= 0) {
             // Password never expires
@@ -231,7 +232,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function shouldExpirePassword(): bool
     {
-        return config('auth.security.password_expiration_days', 90) > 0;
+        return (int) config('auth.security.password_expiration_days', 90) > 0;
     }
 
     /**
@@ -315,43 +316,47 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get user's security score (0-100).
      */
-    public function getSecurityScoreAttribute(): int
+    protected function securityScore(): Attribute
     {
-        $score = 100; // Start with perfect score
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                $score = 100; // Start with perfect score
 
-        // Deduct if password is expired or expiring soon
-        if ($this->isPasswordExpired()) {
-            $score -= 30; // Big penalty for expired password
-        } elseif ($this->getPasswordExpirationDays() !== null && $this->getPasswordExpirationDays() <= 7) {
-            $score -= 15; // Moderate penalty if expiring within 7 days
-        }
+                // Deduct if password is expired or expiring soon
+                if ($this->isPasswordExpired()) {
+                    $score -= 30; // Big penalty for expired password
+                } elseif ($this->getPasswordExpirationDays() !== null && $this->getPasswordExpirationDays() <= 7) {
+                    $score -= 15; // Moderate penalty if expiring within 7 days
+                }
 
-        // Deduct if no 2FA enabled
-        if (!$this->hasTwoFactorEnabled()) {
-            $score -= 20;
-        }
+                // Deduct if no 2FA enabled
+                if (!$this->hasTwoFactorEnabled()) {
+                    $score -= 20;
+                }
 
-        // Deduct if email not verified
-        if (!$this->hasVerifiedEmail()) {
-            $score -= 10;
-        }
+                // Deduct if email not verified
+                if (!$this->hasVerifiedEmail()) {
+                    $score -= 10;
+                }
 
-        // Deduct if account is inactive
-        if (!$this->isActive()) {
-            $score -= 20;
-        }
+                // Deduct if account is inactive
+                if (!$this->isActive()) {
+                    $score -= 20;
+                }
 
-        // Deduct if account is locked
-        if ($this->isLocked()) {
-            $score -= 30;
-        }
+                // Deduct if account is locked
+                if ($this->isLocked()) {
+                    $score -= 30;
+                }
 
-        // Deduct if old password (not changed in 90 days)
-        if (!$this->password_changed_at || $this->password_changed_at->diffInDays(now()) >= 90) {
-            $score -= 10;
-        }
+                // Deduct if old password (not changed in 90 days)
+                if (!$this->password_changed_at || $this->password_changed_at->diffInDays(now()) >= 90) {
+                    $score -= 10;
+                }
 
-        return max(0, min(100, $score));
+                return max(0, min(100, $score));
+            }
+        );
     }
 
     /**

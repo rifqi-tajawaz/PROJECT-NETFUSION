@@ -18,10 +18,10 @@ class RenamedRoutesTest extends TestCase
         $user = User::factory()->create();
 
         $routes = [
-            'mikrotik.utilities.batch.backup',
-            'mikrotik.utilities.batch.dns-ping',
-            'mikrotik.utilities.batch.port-scanner',
-            'mikrotik.utilities.batch.session-restore',
+            'mikrotik-suite.utilities.batch.backup',
+            'mikrotik-suite.utilities.batch.dns-ping',
+            'mikrotik-suite.utilities.batch.port-scanner',
+            'mikrotik-suite.utilities.batch.session-restore',
         ];
 
         foreach ($routes as $route) {
@@ -38,9 +38,9 @@ class RenamedRoutesTest extends TestCase
         $user = User::factory()->create();
 
         $routes = [
-            'mikrotik.network.ipv6.subnetting-generator',
-            'mikrotik.network.ipv6.firewall-generator',
-            'mikrotik.network.ipv6.neighbor-discovery',
+            'mikrotik-suite.network.ipv6.subnetting-generator',
+            'mikrotik-suite.network.ipv6.firewall-generator',
+            'mikrotik-suite.network.ipv6.neighbor-discovery',
         ];
 
         foreach ($routes as $route) {
@@ -57,9 +57,9 @@ class RenamedRoutesTest extends TestCase
         $user = User::factory()->create();
 
         $routes = [
-            'mikrotik.system.automation.scheduler-builder',
-            'mikrotik.system.automation.auto-reboot',
-            'mikrotik.system.automation.bandwidth',
+            'mikrotik-suite.system.automation.scheduler-builder',
+            'mikrotik-suite.system.automation.auto-reboot',
+            'mikrotik-suite.system.automation.bandwidth',
         ];
 
         foreach ($routes as $route) {
@@ -76,8 +76,8 @@ class RenamedRoutesTest extends TestCase
         $user = User::factory()->create();
 
         $routes = [
-            'mikrotik.network.enterprise.ldp-vpls',
-            'mikrotik.network.enterprise.traffic-engineering',
+            'mikrotik-suite.network.enterprise.ldp-vpls',
+            'mikrotik-suite.network.enterprise.traffic-engineering',
         ];
 
         foreach ($routes as $route) {

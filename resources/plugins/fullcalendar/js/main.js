@@ -10022,9 +10022,20 @@ var FullCalendar = (function (exports) {
         }
         FeaturefulElementDragging.prototype.destroy = function () {
             this.pointer.destroy();
-            // HACK: simulate a pointer-up to end the current drag
-            // TODO: fire 'dragend' directly and stop interaction. discourage use of pointerup event (b/c might not fire)
-            this.onPointerUp({});
+            if (this.isInteracting) {
+                this.isInteracting = false;
+                allowSelection(document.body);
+                allowContextMenu(document.body);
+                if (this.isDragging) {
+                    this.autoScroller.stop();
+                    this.mirror.cleanup();
+                    this.stopDrag({});
+                }
+                if (this.delayTimeoutId) {
+                    clearTimeout(this.delayTimeoutId);
+                    this.delayTimeoutId = null;
+                }
+            }
         };
         FeaturefulElementDragging.prototype.startDelay = function (ev) {
             var _this = this;

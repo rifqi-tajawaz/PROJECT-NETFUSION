@@ -10,6 +10,15 @@ class SmokeTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // Disable ReCaptcha for testing
+        config(['recaptcha.enabled' => false]);
+        // Mock Mail to prevent errors and actual sending
+        \Illuminate\Support\Facades\Mail::fake();
+    }
+
     /**
      * Test all registered GET routes to ensure no 500 errors.
      */

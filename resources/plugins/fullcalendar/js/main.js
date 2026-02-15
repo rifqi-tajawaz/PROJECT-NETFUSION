@@ -12802,7 +12802,8 @@ var FullCalendar = (function (exports) {
             };
             _this.handleScrollTopRequest = function (scrollTop) {
                 var scrollerEl = _this.scrollerElRef.current;
-                if (scrollerEl) { // TODO: not sure how this could ever be null. weirdness with the reducer
+                /* scrollerEl can be null during view transitions (e.g. allDaySlot toggling) or if the component is unmounting. */
+                if (scrollerEl) {
                     scrollerEl.scrollTop = scrollTop;
                 }
             };

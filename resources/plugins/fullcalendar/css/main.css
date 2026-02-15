@@ -1260,6 +1260,10 @@ A VERTICAL event
   /* line */
 
 }
+:root {
+  --fc-now-indicator-arrow-size: 5px;
+  --fc-now-indicator-arrow-width: 6px;
+}
 .fc .fc-timegrid-now-indicator-line {
     position: absolute;
     z-index: 4;
@@ -1278,26 +1282,19 @@ A VERTICAL event
 .fc .fc-timegrid-now-indicator-arrow {
     position: absolute;
     z-index: 4;
-    margin-top: -5px; /* vertically center on top coordinate */
+    margin-top: -5px;
+    margin-top: calc(var(--fc-now-indicator-arrow-size, 5px) * -1); /* vertically center on top coordinate */
     border-style: solid;
     border-color: red;
     border-color: var(--fc-now-indicator-color, red);
+    border-top-color: transparent;
+    border-bottom-color: transparent;
   }
 .fc-direction-ltr .fc-timegrid-now-indicator-arrow {
     left: 0;
-
-    /* triangle pointing right */
-    border-width: var(--fc-now-indicator-arrow-vertical-radius) 0 var(--fc-now-indicator-arrow-vertical-radius) var(--fc-now-indicator-arrow-width);
-    border-top-color: transparent;
-    border-bottom-color: transparent;
   }
 .fc-direction-rtl .fc-timegrid-now-indicator-arrow {
     right: 0;
-
-    /* triangle pointing left */
-    border-width: var(--fc-now-indicator-arrow-vertical-radius) var(--fc-now-indicator-arrow-width) var(--fc-now-indicator-arrow-vertical-radius) 0;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
   }
 
 

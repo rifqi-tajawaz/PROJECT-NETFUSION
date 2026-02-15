@@ -8155,7 +8155,7 @@ var FullCalendar = (function (exports) {
             };
             var classNames = [CLASS_NAME].concat(getDayClassNames(dateMeta, theme), props.extraClassNames || []);
             var text = dateEnv.format(date, props.dayHeaderFormat);
-            var hookProps = __assign(__assign(__assign(__assign({ // TODO: make this public?
+            var hookProps = this.hookProps = __assign(__assign(__assign(__assign({
                 date: date }, dateMeta), { view: viewApi }), props.extraHookProps), { text: text });
             return (createElement(RenderHook, { hookProps: hookProps, classNames: options.dayHeaderClassNames, content: options.dayHeaderContent, defaultContent: renderInner, didMount: options.dayHeaderDidMount, willUnmount: options.dayHeaderWillUnmount }, function (rootElRef, customClassNames, innerElRef, innerContent) { return (createElement("th", __assign({ ref: rootElRef, className: classNames.concat(customClassNames).join(' '), colSpan: props.colSpan }, props.extraDataAttrs),
                 createElement("div", { className: 'fc-scrollgrid-sync-inner' },
@@ -12338,7 +12338,8 @@ var FullCalendar = (function (exports) {
         // Hit System
         // ----------------------------------------------------------------------------------------------------
         Table.prototype.prepareHits = function () {
-            false, true // vertical
+            var _this = this;
+            this.rowPositions = new PositionCache(this.rootEl, this.props.cells.map(function (_, i) { return _this.rowRefs.currentMap[i].rootElRef.current; }), false, true // vertical
             );
             this.colPositions = new PositionCache(this.rootEl, this.rowRefs.currentMap[0].getCellEls(), // cell els in first row
             true, // horizontal

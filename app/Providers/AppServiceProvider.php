@@ -132,45 +132,43 @@ class AppServiceProvider extends ServiceProvider
 
         Event::listen(
             Registered::class,
-            [SendEmailVerificationNotification::class]
+            SendEmailVerificationNotification::class
         );
 
-        Event::listen(
-            UserLoggedIn::class,
-            [
-                LogUserLogin::class,
-                UpdateLastLogin::class,
-                ClearLoginAttempts::class,
-            ]
-        );
+        foreach ([
+            LogUserLogin::class,
+            UpdateLastLogin::class,
+            ClearLoginAttempts::class,
+        ] as $listener) {
+            Event::listen(UserLoggedIn::class, $listener);
+        }
 
         // UserLoggedOut::class - empty in original
 
-        Event::listen(
-            RouterConnected::class,
-            [
-                LogRouterConnection::class,
-                CacheRouterStatus::class,
-            ]
-        );
+        foreach ([
+            LogRouterConnection::class,
+            CacheRouterStatus::class,
+        ] as $listener) {
+            Event::listen(RouterConnected::class, $listener);
+        }
 
         // RouterDisconnected::class - empty in original
 
         Event::listen(
             UserCreated::class,
-            [LogHotspotUserCreation::class]
+            LogHotspotUserCreation::class
         );
 
         // UserDeleted::class - empty in original
 
         Event::listen(
             SecurityAlert::class,
-            [HandleSecurityAlert::class]
+            HandleSecurityAlert::class
         );
 
         Event::listen(
             BackupCompleted::class,
-            [CleanupOldBackups::class]
+            CleanupOldBackups::class
         );
 
         // Existing listener

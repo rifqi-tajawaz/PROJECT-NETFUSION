@@ -472,3 +472,4 @@ window.NetFusion = {
   copyToClipboard: copyText // Backward compatibility alias
 };
 
+export { NetFusionUI };

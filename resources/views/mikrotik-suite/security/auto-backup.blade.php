@@ -21,7 +21,7 @@
 
                     <div class="mb-3">
                         <label class="form-label text-secondary small text-uppercase fw-bold">Email</label>
-                        <input type="email" class="form-control border-secondary border-opacity-25" id="email"
+                        <input type="email" class="form-control border-secondary border-opacity-25" id="email" name="email"
                             placeholder="admin@example.com">
                         <div class="form-text text-secondary opacity-75">Requires properly configured /tool e-mail</div>
                     </div>

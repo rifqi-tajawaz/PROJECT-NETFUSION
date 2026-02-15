@@ -42,11 +42,9 @@ $(function () {
 
   /* menu */
 
-  $(function () {
-    if ($.fn.metisMenu) {
-      $('#sidenav').metisMenu();
-    }
-  });
+  if ($.fn.metisMenu) {
+    $('#sidenav').metisMenu();
+  }
 
   $(document).on("click", ".sidebar-close", function () {
     $("body").removeClass("toggled")
@@ -76,14 +74,12 @@ $(function () {
 
   /* sticky header */
 
-  $(document).ready(function () {
-    $(window).on("scroll", function () {
-      if ($(this).scrollTop() > 60) {
-        $('.top-header .navbar').addClass('sticky-header');
-      } else {
-        $('.top-header .navbar').removeClass('sticky-header');
-      }
-    });
+  $(window).on("scroll", function () {
+    if ($(this).scrollTop() > 60) {
+      $('.top-header .navbar').addClass('sticky-header');
+    } else {
+      $('.top-header .navbar').removeClass('sticky-header');
+    }
   });
 
 
@@ -296,11 +292,9 @@ $(function () {
 
   /* menu active */
 
-  $(function () {
-    for (var e = window.location, o = $(".metismenu li a").filter(function () {
-      return this.href == e
-    }).addClass("").parent().addClass("mm-active"); o.is("li");) o = o.parent("").addClass("mm-show").parent("").addClass("mm-active")
-  });
+  for (var e = window.location, o = $(".metismenu li a").filter(function () {
+    return this.href == e
+  }).addClass("").parent().addClass("mm-active"); o.is("li");) o = o.parent("").addClass("mm-show").parent("").addClass("mm-active")
 
 
 

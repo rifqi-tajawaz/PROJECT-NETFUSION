@@ -1048,7 +1048,7 @@ A VERTICAL event
       bottom: calc(var(--fc-event-resizer-dot-total-width, 8px) / -2);
     }
 .fc .fc-timegrid .fc-daygrid-body { /* the all-day daygrid within the timegrid view */
-    z-index: 2; /* put above the timegrid-body so that more-popover is above everything. TODO: better solution */
+    z-index: auto; /* ensure it doesn't create a stacking context that traps popovers */
   }
 .fc .fc-timegrid-divider {
     padding: 0 0 2px; /* browsers get confused when you set height. use padding instead */

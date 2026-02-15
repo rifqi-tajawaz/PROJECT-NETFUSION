@@ -12642,8 +12642,7 @@ var FullCalendar = (function (exports) {
             var _a = this, props = _a.props, context = _a.context;
             return (createElement("div", { className: 'fc-timegrid-slots', ref: this.rootElRef },
                 createElement("table", { className: context.theme.getClass('table'), style: {
-                        minWidth: props.tableMinWidth,
-                        width: props.clientWidth,
+                        width: '100%',
                         height: props.minHeight
                     } },
                     props.tableColGroupNode /* relies on there only being a single <col> for the axis */,
@@ -13426,8 +13425,7 @@ var FullCalendar = (function (exports) {
             var eventResizeByRow = this.splitEventResize(props.eventResize, colCnt);
             return (createElement("div", { className: 'fc-timegrid-cols', ref: this.rootElRef },
                 createElement("table", { style: {
-                        minWidth: props.tableMinWidth,
-                        width: props.clientWidth
+                        width: '100%'
                     } },
                     props.tableColGroupNode,
                     createElement("tbody", null,
@@ -13500,7 +13498,6 @@ var FullCalendar = (function (exports) {
             var _a = this, props = _a.props, state = _a.state;
             return (createElement("div", { className: 'fc-timegrid-body', ref: props.rootElRef, style: {
                     // these props are important to give this wrapper correct dimensions for interactions
-                    // TODO: if we set it here, can we avoid giving to inner tables?
                     width: props.clientWidth,
                     minWidth: props.tableMinWidth
                 } },

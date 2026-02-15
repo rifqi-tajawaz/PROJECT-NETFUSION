@@ -34,7 +34,7 @@
                                         <span class="material-icons-outlined">add</span>
                                         {{ __('support.create_ticket_btn') }}
                                     </a>
-                                    <a href="{{ route('documentation') }}"
+                                    <a href="{{ route('documentation.show') }}"
                                         class="btn btn-light border rounded-pill px-4 py-2 fw-bold d-flex align-items-center gap-2 transition-hover bg-white">
                                         <span class="material-icons-outlined text-secondary">menu_book</span>
                                         {{ __('support.browse_docs') }}
@@ -98,7 +98,7 @@
                         <p class="text-secondary mb-4 opacity-75">
                             {{ __('support.knowledge_base_desc') }}
                         </p>
-                        <a href="{{ route('documentation') }}"
+                        <a href="{{ route('documentation.show') }}"
                             class="stretched-link text-decoration-none fw-bold d-flex align-items-center gap-2 text-primary">
                             {{ __('support.browse_docs') }} <span class="material-icons-outlined fs-6">arrow_forward</span>
                         </a>

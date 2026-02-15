@@ -58,7 +58,11 @@ class DashboardTest extends TestCase
     public function test_admin_pages_require_admin_role(): void
     {
         $user = User::factory()->create(['role' => 'user']);
-        $admin = User::factory()->create(['role' => 'admin']);
+        $admin = User::factory()->create([
+            'role' => 'admin',
+            'two_factor_secret' => 'secret',
+            'two_factor_confirmed_at' => now(),
+        ]);
 
         // User should be denied
         // Assuming admin routes start with admin. or have a specific path

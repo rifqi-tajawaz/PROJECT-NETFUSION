@@ -181,12 +181,14 @@ export default defineConfig({
 
                 // FAQs
                 'resources/js/pages/admin/faq.js',
+                'resources/js/pages/faq.js',
 
                 // Admin Support Tickets
                 'resources/js/pages/admin/support-tickets.js',
 
                 // User My Tickets
                 'resources/js/pages/support/my-tickets.js',
+                'resources/js/pages/support/ticket.js',
 
                 // Admin Documentation Editor
                 'resources/js/pages/admin/documentation-editor.js',

@@ -18,7 +18,8 @@
         "laravel/tinker": "^2.9",
         "laravel/ui": "^4.5",
         "pragmarx/google2fa": "^8.0",
-        "spatie/laravel-permission": "^6.0"
+        "spatie/laravel-permission": "^6.0",
+        "symfony/dom-crawler": "^7.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",

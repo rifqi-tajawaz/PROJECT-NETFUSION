@@ -30,39 +30,39 @@
                     </h5>
                 </div>
                 <div class="card-body p-4">
-                    <x-ticket-form :action="route('ticket.store')">
+                    <x-ticket.form :action="route('ticket.store')">
                         <div class="row g-3 mb-4">
-                            <x-ticket-input name="name" type="text" :label="__('support.your_name')" icon="person"
+                            <x-ticket.input name="name" type="text" :label="__('support.your_name')" icon="person"
                                 :value="old('name', optional(auth()->user())->name)"
                                 :placeholder="__('support.enter_name')" />
-                            <x-ticket-input name="email" type="email" :label="__('support.email_address')" icon="email"
+                            <x-ticket.input name="email" type="email" :label="__('support.email_address')" icon="email"
                                 :value="old('email', optional(auth()->user())->email)"
                                 :placeholder="__('support.enter_email')" />
                         </div>
 
                         <hr class="text-muted opacity-25 mb-4">
 
-                        <x-ticket-input name="subject" type="text" :label="__('support.subject') . ' *'"
+                        <x-ticket.input name="subject" type="text" :label="__('support.subject') . ' *'"
                             :value="old('subject')" :placeholder="__('support.subject_placeholder')" :required="true" />
 
                         <div class="row mb-3">
-                            <x-ticket-select name="department" :label="__('support.department')" icon="business" :options="[
+                            <x-ticket.select name="department" :label="__('support.department')" icon="business" :options="[
             'Technical Support' => __('support.dept_technical'),
             'Billing & Account' => __('support.dept_billing'),
             'Sales Inquiry' => __('support.dept_sales')
         ]"
                                 :selected="old('department')" />
-                            <x-ticket-select name="priority" :label="__('support.priority')" icon="speed" :options="[
+                            <x-ticket.select name="priority" :label="__('support.priority')" icon="speed" :options="[
             'Low' => __('support.priority_low'),
             'Medium' => __('support.priority_medium'),
             'High' => __('support.priority_high')
         ]" :selected="old('priority') ?? 'Medium'" />
                         </div>
 
-                        <x-ticket-input name="message" type="textarea" :label="__('support.message_details') . ' *'"
+                        <x-ticket.input name="message" type="textarea" :label="__('support.message_details') . ' *'"
                             :placeholder="__('support.message_placeholder')" :value="old('message')" :required="true" />
 
-                        <x-file-upload-zone name="attachments" :label="__('support.attachments')"
+                        <x-ticket.file-upload-zone name="attachments" :label="__('support.attachments')"
                             :hint="__('support.upload_hint')" types=".svg,.png,.jpg,.jpeg,.pdf" />
 
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -73,7 +73,7 @@
                                 <span class="material-icons-outlined me-2">send</span> {{ __('support.submit_ticket') }}
                             </button>
                         </div>
-                    </x-ticket-form>
+                    </x-ticket.form>
                 </div>
             </div>
         </div>

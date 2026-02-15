@@ -1,4 +1,5 @@
-<!-- Pace Loader managed via main.css -->
+<!-- Pace Loader -->
+<script src="{{ URL::asset('build/js/pace.min.js') }}" defer></script>
 
 <!--plugins-->
 <link href="{{ URL::asset('build/plugins/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet">

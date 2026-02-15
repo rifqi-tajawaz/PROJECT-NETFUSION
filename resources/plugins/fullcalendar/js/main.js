@@ -12330,7 +12330,7 @@ var FullCalendar = (function (exports) {
         // Hit System
         // ----------------------------------------------------------------------------------------------------
         Table.prototype.prepareHits = function () {
-            this.rowPositions = new PositionCache(this.rootEl, this.rowRefs.collect().map(function (rowObj) { return rowObj.getCellEls()[0]; }), // first cell el in each row. TODO: not optimal
+            this.rowPositions = new PositionCache(this.rootEl, this.rowRefs.getAll().map(function (rowObj) { return rowObj.getCellEls()[0]; }), // first cell el in each row. TODO: not optimal
             false, true // vertical
             );
             this.colPositions = new PositionCache(this.rootEl, this.rowRefs.currentMap[0].getCellEls(), // cell els in first row

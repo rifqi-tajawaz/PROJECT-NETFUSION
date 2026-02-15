@@ -43,16 +43,16 @@ Route::middleware(['throttle:5,1'])->group(function () {
     Auth::routes(['verify' => true, 'login' => false]);
 });
 
-// Social Auth
-Route::controller(SocialAuthController::class)->prefix('auth')->name('social.')->group(function () {
-    Route::get('{provider}', 'redirect')->name('redirect');
-    Route::get('{provider}/callback', 'callback')->name('callback');
-});
-
 // Verification Routes
 Route::middleware(['guest'])->prefix('auth')->name('auth.')->group(function () {
     Route::view('verification-required', 'auth.verification-required')->name('verification.required');
     Route::post('verify-device', [DeviceVerificationController::class, 'verify'])->name('verify-device');
+});
+
+// Social Auth
+Route::controller(SocialAuthController::class)->prefix('auth')->name('social.')->group(function () {
+    Route::get('{provider}', 'redirect')->name('redirect');
+    Route::get('{provider}/callback', 'callback')->name('callback');
 });
 
 // Email Verification

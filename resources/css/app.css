@@ -6,4 +6,8 @@
     .glass-effect {
         @apply bg-white/80 backdrop-blur-lg border border-white/50 shadow-sm;
     }
+
+    .glass-effect-dark {
+        @apply bg-slate-800/80 backdrop-blur-lg border border-white/10 shadow-sm;
+    }
 }

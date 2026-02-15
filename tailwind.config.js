@@ -10,6 +10,11 @@ export default {
       fontFamily: {
         sans: ['Poppins', 'sans-serif'],
       },
+      colors: {
+        slate: {
+            850: '#151e2e', // Custom darker slate if needed
+        }
+      }
     },
   },
   plugins: [

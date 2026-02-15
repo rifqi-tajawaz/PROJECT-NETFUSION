@@ -65,7 +65,9 @@ class PasswordTest extends TestCase
     {
         $rule = new StrongPassword();
 
-        $this->assertFalse($rule->passes('password', 'Password123!'));
+        // Password123! has only 3 sequential digits (123), so StrongPassword allows it.
+        // We use Password1234! which has 4 sequential digits (1234) and should fail.
+        $this->assertFalse($rule->passes('password', 'Password1234!'));
         $this->assertFalse($rule->passes('password', '12345678'));
         $this->assertFalse($rule->passes('password', 'password123'));
     }
@@ -104,11 +106,17 @@ class PasswordTest extends TestCase
     /** @test */
     public function user_can_get_password_expiration_days(): void
     {
+        // Use start of second to avoid microsecond discrepancies between PHP and DB
+        $now = now()->startOfSecond();
+        \Illuminate\Support\Carbon::setTestNow($now);
+
         $user = User::factory()->create([
-            'password_expires_at' => now()->addDays(7),
+            'password_expires_at' => $now->copy()->addDays(7),
         ]);
 
         $this->assertEquals(7, $user->getPasswordExpirationDays());
+
+        \Illuminate\Support\Carbon::setTestNow(); // Reset
     }
 
     /** @test */

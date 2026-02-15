@@ -5,8 +5,9 @@ $(function () {
 
 
   // chart 1
+{
 
-  var options = {
+  const options = {
     series: [{
       name: "Net Sales",
       data: [4, 10, 25, 12, 25, 18, 40]
@@ -67,15 +68,17 @@ $(function () {
     }
   };
 
-  var chart = new ApexCharts(document.querySelector("#chart1"), options);
+  const chart = new ApexCharts(document.querySelector("#chart1"), options);
   chart.render();
+}
 
 
 
 
   // chart 2
+{
 
-  var options = {
+  const options = {
     series: [{
       name: "Net Sales",
       data: [0, 8, 19, 12, 25, 5, 8]
@@ -136,14 +139,16 @@ $(function () {
     }
   };
 
-  var chart = new ApexCharts(document.querySelector("#chart2"), options);
+  const chart = new ApexCharts(document.querySelector("#chart2"), options);
   chart.render();
+}
 
 
 
   // chart 3
+{
 
-  var options = {
+  const options = {
     series: [{
       name: "Net Sales",
       data: [2, 5, 40, 10, 15, 10, 10]
@@ -204,14 +209,16 @@ $(function () {
     }
   };
 
-  var chart = new ApexCharts(document.querySelector("#chart3"), options);
+  const chart = new ApexCharts(document.querySelector("#chart3"), options);
   chart.render();
+}
 
 
 
   // chart 4
+{
 
-  var options = {
+  const options = {
     series: [{
       name: "Net Sales",
       data: [25, 10, 45, 12, 25, 18, 40]
@@ -272,15 +279,17 @@ $(function () {
     }
   };
 
-  var chart = new ApexCharts(document.querySelector("#chart4"), options);
+  const chart = new ApexCharts(document.querySelector("#chart4"), options);
   chart.render();
+}
 
 
 
 
   // chart 5
+{
 
-  var options = {
+  const options = {
     series: [{
       name: "Net Sales",
       data: [2, 5, 60, 10, 30, 10, 25, 1]
@@ -360,16 +369,18 @@ $(function () {
     }
   };
 
-  var chart = new ApexCharts(document.querySelector("#chart5"), options);
+  const chart = new ApexCharts(document.querySelector("#chart5"), options);
   chart.render();
+}
 
 
 
 
 
   // chart 6
+{
 
-  var options = {
+  const options = {
     series: [{
       name: "Net Sales",
       data: [20, 5, 60, 10, 30, 20, 25, 15, 31]
@@ -450,8 +461,9 @@ $(function () {
     }
   };
 
-  var chart = new ApexCharts(document.querySelector("#chart6"), options);
+  const chart = new ApexCharts(document.querySelector("#chart6"), options);
   chart.render();
+}
 
 
 

@@ -3,8 +3,9 @@ $(function () {
 
 
     // chart 1
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Total Sales",
             data: [4, 10, 25, 12, 25, 18, 40, 22, 7]
@@ -65,14 +66,16 @@ $(function () {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart1"), options);
+    const chart = new ApexCharts(document.querySelector("#chart1"), options);
     chart.render();
+}
 
 
 
     // chart 2
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Total Accounts",
             data: [4, 10, 25, 12, 25, 18, 40, 22, 7]
@@ -133,15 +136,17 @@ $(function () {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart2"), options);
+    const chart = new ApexCharts(document.querySelector("#chart2"), options);
     chart.render();
+}
 
 
 
 
     // chart 3
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Net Sales",
             data: [4, 10, 25, 12, 25, 18, 40, 22, 7]
@@ -202,14 +207,16 @@ $(function () {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart3"), options);
+    const chart = new ApexCharts(document.querySelector("#chart3"), options);
     chart.render();
+}
 
 
 
     // chart 4
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Weekly Sales",
             data: [8, 10, 25, 18, 38, 24, 20, 16, 7]
@@ -280,15 +287,17 @@ $(function () {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart4"), options);
+    const chart = new ApexCharts(document.querySelector("#chart4"), options);
     chart.render();
+}
 
 
 
 
     // chart 5
+{
 
-    var options = {
+    const options = {
         series: [78],
         chart: {
             height: 180,
@@ -367,14 +376,16 @@ $(function () {
         labels: ['Total Orders'],
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart5"), options);
+    const chart = new ApexCharts(document.querySelector("#chart5"), options);
     chart.render();
+}
 
 
 
     // chart 6
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Net Sales",
             data: [4, 10, 25, 12, 25, 18, 40, 22, 7]
@@ -435,15 +446,17 @@ $(function () {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart6"), options);
+    const chart = new ApexCharts(document.querySelector("#chart6"), options);
     chart.render();
+}
 
 
 
 
     // chart 7
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Net Sales",
             data: [4, 10, 12, 17, 25, 30, 40, 55, 68]
@@ -514,15 +527,17 @@ $(function () {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart7"), options);
+    const chart = new ApexCharts(document.querySelector("#chart7"), options);
     chart.render();
+}
 
 
 
 
     // chart 8
+{
 
-    var options = {
+    const options = {
         series: [78],
         chart: {
             height: 165,
@@ -601,14 +616,16 @@ $(function () {
         labels: ['Total Orders'],
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart8"), options);
+    const chart = new ApexCharts(document.querySelector("#chart8"), options);
     chart.render();
+}
 
 
 
     // chart 9
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Net Sales",
             data: [4, 25, 14, 34, 10, 39]
@@ -673,15 +690,17 @@ $(function () {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart9"), options);
+    const chart = new ApexCharts(document.querySelector("#chart9"), options);
     chart.render();
+}
 
 
 
 
     // chart 10
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Sales",
             data: [20, 5, 60, 10, 30, 20, 25, 15, 31]
@@ -764,15 +783,17 @@ $(function () {
         }
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart10"), options);
+    const chart = new ApexCharts(document.querySelector("#chart10"), options);
     chart.render();
+}
 
 
 
 
     // chart 11 
+{
 
-    var options = {
+    const options = {
         series: [58, 25, 25],
         chart: {
             height: 290,
@@ -819,14 +840,16 @@ $(function () {
         }]
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart11"), options);
+    const chart = new ApexCharts(document.querySelector("#chart11"), options);
     chart.render();
+}
 
 
 
     // chart 12
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Desktops",
             data: [14, 41, 35, 51, 25, 18, 21, 35, 15]
@@ -889,15 +912,17 @@ $(function () {
         },
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart12"), options);
+    const chart = new ApexCharts(document.querySelector("#chart12"), options);
     chart.render();
+}
 
 
 
 
     // chart 13
+{
 
-    var options = {
+    const options = {
         series: [44, 55, 41],
         chart: {
             height: 237,
@@ -938,14 +963,16 @@ $(function () {
         }]
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart13"), options);
+    const chart = new ApexCharts(document.querySelector("#chart13"), options);
     chart.render();
+}
 
 
 
     // chart 14
+{
 
-    var options = {
+    const options = {
         series: [{
             name: "Desktops",
             data: [100, 65, 34, 51, 25, 40, 21, 35, 15]
@@ -1007,8 +1034,9 @@ $(function () {
         },
     };
 
-    var chart = new ApexCharts(document.querySelector("#chart14"), options);
+    const chart = new ApexCharts(document.querySelector("#chart14"), options);
     chart.render();
+}
 
 
 

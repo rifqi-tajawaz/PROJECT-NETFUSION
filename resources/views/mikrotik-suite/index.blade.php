@@ -1,350 +1,148 @@
 @extends('layouts.app')
 
-@section('title', 'Service Center & Dashboard')
+@section('title', 'Dashboard')
 
 @section('content')
-    <!-- 3D Coverflow Hero Section (Transparent / Blended) -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="perspective-container position-relative py-5 bg-transparent overflow-hidden">
-                <!-- Floating Elements (Stars/Coins simulation) -->
-                <div class="position-absolute top-0 start-0 m-5 animate-float-slow opacity-50">
-                    <span class="material-icons-outlined text-primary fs-1">stars</span>
-                </div>
-                <div class="position-absolute top-0 end-0 m-5 mt-4 me-5 animate-float opacity-50">
-                    <span class="material-icons-outlined text-warning fs-3">monetization_on</span>
-                </div>
+<div class="space-y-8">
 
-                <!-- Content Header -->
-                <div class="position-relative z-index-1 text-center mb-4 mt-4">
-                    <span
-                        class="d-inline-block py-1 px-3 rounded-pill bg-white border shadow-sm text-secondary fw-bold small mb-3 animate-fade-down"
-                        style="letter-spacing: 1px; font-size: 0.7rem;">
-                        <span class="text-brand me-1">&bullet;</span> {{ __('dashboard.hero.tag') }}
-                    </span>
-                    <h1 class="display-3 fw-bolder mb-3 tracking-tight text-gradient-dark animate-fade-down"
-                        style="animation-delay: 0.1s;">
-                        {{ __('dashboard.hero.title') }}
-                    </h1>
-                    <p class="text-secondary fs-6 mb-5 mx-auto animate-fade-down" <p
-                        class="text-secondary fs-6 mb-5 mx-auto animate-fade-down"
-                        style="max-width: 600px; line-height: 1.8; animation-delay: 0.2s;">
-                        {{ __('dashboard.hero.subtitle') }}
-                    </p>
+    {{-- Header Section --}}
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-3xl font-bold text-slate-800 tracking-tight">Good Morning, {{ explode(' ', Auth::user()->name)[0] }} 👋</h1>
+            <p class="text-slate-500 mt-1 font-medium">Here's what's happening with your network today.</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-slate-600 shadow-sm border border-slate-100 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                System Online
+            </span>
+            <button class="w-10 h-10 bg-white rounded-full flex items-center justify-center text-slate-400 hover:text-indigo-600 shadow-sm border border-slate-100 transition-colors">
+                <i class="material-icons-outlined text-xl">refresh</i>
+            </button>
+        </div>
+    </div>
 
-                    <div class="d-flex justify-content-center gap-3 animate-fade-up" style="animation-delay: 0.3s;">
-                        <a href="{{ route('mikrotik-suite.monitoring.traffic-monitor') }}"
-                            class="btn btn-brand rounded-pill px-5 py-3 d-flex align-items-center gap-2 transition-hover shadow-brand glow-effect">
-                            {{ __('dashboard.hero.btn_monitor') }} <span class="material-icons-outlined fs-6">speed</span>
-                        </a>
-                        <a href="#services"
-                            class="btn btn-white rounded-pill px-5 py-3 fw-semibold d-flex align-items-center gap-2 transition-hover shadow-sm text-dark border-white-glass">
-                            {{ __('dashboard.hero.btn_tools') }} <span class="material-icons-outlined fs-6">widgets</span>
-                        </a>
+    {{-- Stats Grid --}}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        {{-- Card 1 --}}
+        <div class="bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-slate-100 group">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors duration-300">
+                    <i class="material-icons-outlined text-2xl">router</i>
+                </div>
+                <span class="text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-lg">+12%</span>
+            </div>
+            <h3 class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Active Routers</h3>
+            <p class="text-3xl font-bold text-slate-800">24</p>
+        </div>
+
+        {{-- Card 2 --}}
+        <div class="bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-slate-100 group">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-purple-50 flex items-center justify-center text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
+                    <i class="material-icons-outlined text-2xl">wifi</i>
+                </div>
+                <span class="text-xs font-bold text-emerald-500 bg-emerald-50 px-2 py-1 rounded-lg">+5%</span>
+            </div>
+            <h3 class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Hotspot Users</h3>
+            <p class="text-3xl font-bold text-slate-800">1,204</p>
+        </div>
+
+        {{-- Card 3 --}}
+        <div class="bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-slate-100 group">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-pink-50 flex items-center justify-center text-pink-600 group-hover:bg-pink-600 group-hover:text-white transition-colors duration-300">
+                    <i class="material-icons-outlined text-2xl">error_outline</i>
+                </div>
+                <span class="text-xs font-bold text-slate-400 bg-slate-50 px-2 py-1 rounded-lg">0%</span>
+            </div>
+            <h3 class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Critical Alerts</h3>
+            <p class="text-3xl font-bold text-slate-800">3</p>
+        </div>
+
+        {{-- Card 4 --}}
+        <div class="bg-white rounded-[2rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300 border border-slate-100 group">
+            <div class="flex justify-between items-start mb-4">
+                <div class="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center text-orange-600 group-hover:bg-orange-600 group-hover:text-white transition-colors duration-300">
+                    <i class="material-icons-outlined text-2xl">speed</i>
+                </div>
+                <span class="text-xs font-bold text-red-500 bg-red-50 px-2 py-1 rounded-lg">-2%</span>
+            </div>
+            <h3 class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-1">Avg Latency</h3>
+            <p class="text-3xl font-bold text-slate-800">12ms</p>
+        </div>
+    </div>
+
+    {{-- Main Charts & Activity Section --}}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+        {{-- Large Chart Card --}}
+        <div class="lg:col-span-2 bg-white rounded-[2.5rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 relative overflow-hidden">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h3 class="text-lg font-bold text-slate-800">Traffic Overview</h3>
+                    <p class="text-sm text-slate-400 font-medium">Daily bandwidth consumption</p>
+                </div>
+                <select class="bg-slate-50 border-none text-sm font-semibold text-slate-600 rounded-xl py-2 pl-4 pr-8 focus:ring-0 cursor-pointer hover:bg-slate-100 transition-colors">
+                    <option>Last 7 Days</option>
+                    <option>Last 30 Days</option>
+                </select>
+            </div>
+
+            {{-- Placeholder Chart Area --}}
+            <div class="h-64 flex items-end justify-between gap-2 px-2">
+                @foreach([40, 65, 45, 80, 55, 70, 50, 60, 75, 45, 65, 55] as $height)
+                    <div class="w-full bg-slate-50 rounded-t-xl relative group h-full flex items-end">
+                        <div style="height: {{ $height }}%" class="w-full bg-indigo-500 rounded-xl opacity-80 group-hover:opacity-100 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] transition-all duration-300"></div>
                     </div>
-                </div>
+                @endforeach
+            </div>
+            <div class="flex justify-between mt-4 text-xs font-bold text-slate-400 uppercase tracking-wider px-2">
+                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span>
+            </div>
+        </div>
 
-                <div class="coverflow-slider position-relative mt-4" id="coverflowSlider">
-                    <div class="coverflow-track">
-                        <!-- Card 1: Traffic Monitor (Brand Theme) -->
-                        <div class="coverflow-card active" data-theme="blue">
-                            <x-service-card :wrapCol="false" theme="primary" icon="analytics"
-                                :title="__('dashboard.cards.traffic_monitor.title')"
-                                :description="__('dashboard.cards.traffic_monitor.desc')" badge="v2.4" :features="[
-            ['icon' => 'check_circle', 'label' => __('dashboard.cards.traffic_monitor.list.live_graph')],
-            ['icon' => 'check_circle', 'label' => __('dashboard.cards.traffic_monitor.list.top_talkers')],
-            ['icon' => 'check_circle', 'label' => __('dashboard.cards.traffic_monitor.list.export')]
-        ]"
-                                :btnLink="route('mikrotik-suite.monitoring.traffic-monitor')"
-                                :btnText="__('dashboard.cards.traffic_monitor.btn')" btnClass="btn-primary text-white">
-                                <x-slot name="footer">
-                                    <div class="d-flex justify-content-between small">
-                                        <span
-                                            class="text-secondary">{{ __('dashboard.cards.traffic_monitor.status') }}</span>
-                                        <span class="text-success fw-bold"><i class="bi bi-circle-fill text-success me-1"
-                                                style="font-size: 6px; vertical-align: middle;"></i>
-                                            {{ __('dashboard.cards.traffic_monitor.active') }}</span>
-                                    </div>
-                                </x-slot>
-                            </x-service-card>
-                        </div>
+        {{-- Side Widgets Column --}}
+        <div class="space-y-6">
 
-                        <!-- Card 2: Security (Green Theme) -->
-                        <div class="coverflow-card" data-theme="green">
-                            <x-service-card :wrapCol="false" theme="success" icon="shield"
-                                :title="__('dashboard.cards.security.title')"
-                                :description="__('dashboard.cards.security.desc')"
-                                :badge="__('dashboard.cards.security.badge')" :features="[
-            ['icon' => 'verified_user', 'label' => __('dashboard.cards.security.list.ddos')],
-            ['icon' => 'verified_user', 'label' => __('dashboard.cards.security.list.port_knocking')],
-            ['icon' => 'verified_user', 'label' => __('dashboard.cards.security.list.blacklist')]
-        ]">
-                                <x-slot name="btnSlot">
-                                    <a href="https://wa.me/6281234567890?text=I%20want%20Security%20Hardening"
-                                        target="_blank"
-                                        class="btn btn-outline-success rounded-pill btn-sm w-100 fw-bold bg-white bg-opacity-50">
-                                        {{ __('dashboard.cards.security.btn') }}
-                                    </a>
-                                </x-slot>
-                                <x-slot name="footer">
-                                    <div class="d-flex justify-content-between small">
-                                        <span
-                                            class="text-secondary">{{ __('dashboard.cards.security.label_protection') }}</span>
-                                        <span
-                                            class="text-dark fw-bold">{{ __('dashboard.cards.security.val_enterprise') }}</span>
-                                    </div>
-                                </x-slot>
-                            </x-service-card>
-                        </div>
+            {{-- Quick Actions --}}
+            <div class="bg-indigo-600 rounded-[2.5rem] p-8 text-white shadow-[0_20px_40px_-10px_rgba(79,70,229,0.4)] relative overflow-hidden">
+                {{-- Decorative Shapes --}}
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-bl-[100px]"></div>
+                <div class="absolute bottom-0 left-0 w-20 h-20 bg-black/10 rounded-tr-[50px]"></div>
 
-                        <!-- Card 3: VPN Access (Yellow Theme) -->
-                        <div class="coverflow-card" data-theme="yellow">
-                            <x-service-card :wrapCol="false" theme="warning" icon="vpn_lock"
-                                :title="__('dashboard.cards.vpn.title')" :description="__('dashboard.cards.vpn.desc')"
-                                :badge="__('dashboard.cards.vpn.badge')" :features="[
-            ['icon' => 'key', 'label' => __('dashboard.cards.vpn.list.encryption')],
-            ['icon' => 'key', 'label' => __('dashboard.cards.vpn.list.multi_user')],
-            ['icon' => 'key', 'label' => __('dashboard.cards.vpn.list.latency')]
-        ]">
-                                <x-slot name="btnSlot">
-                                    <a href="https://wa.me/6281234567890?text=I%20want%20VPN%20Setup" target="_blank"
-                                        class="btn btn-outline-warning text-dark rounded-pill btn-sm w-100 fw-bold bg-white bg-opacity-50">
-                                        Setup VPN
-                                    </a>
-                                </x-slot>
-                                <x-slot name="footer">
-                                    <div class="d-flex justify-content-between small">
-                                        <span class="text-secondary">{{ __('dashboard.cards.vpn.label_latency') }}</span>
-                                        <span class="text-dark fw-bold">{{ __('dashboard.cards.vpn.val_low') }}</span>
-                                    </div>
-                                </x-slot>
-                            </x-service-card>
-                        </div>
+                <div class="relative z-10">
+                    <h3 class="text-xl font-bold mb-1">Quick Generate</h3>
+                    <p class="text-indigo-200 text-sm mb-6">Create new hotspot vouchers instantly</p>
 
-                        <!-- Card 4: Hotspot (Red Theme) -->
-                        <div class="coverflow-card" data-theme="red">
-                            <x-service-card :wrapCol="false" theme="danger" icon="wifi_tethering"
-                                :title="__('dashboard.cards.hotspot.title')"
-                                :description="__('dashboard.cards.hotspot.desc')"
-                                :badge="__('dashboard.cards.hotspot.badge')" :features="[
-            ['icon' => 'local_printshop', 'label' => __('dashboard.cards.hotspot.list.print')],
-            ['icon' => 'qr_code', 'label' => __('dashboard.cards.hotspot.list.qr')],
-            ['icon' => 'bolt', 'label' => __('dashboard.cards.hotspot.list.users')]
-        ]"
-                                :btnLink="route('mikrotik-suite.connectivity.hotspot.user-generator')"
-                                :btnText="__('dashboard.cards.hotspot.btn')"
-                                btnClass="btn-outline-danger text-dark bg-white bg-opacity-50">
-                                <x-slot name="footer">
-                                    <div class="d-flex justify-content-between small">
-                                        <span
-                                            class="text-secondary">{{ __('dashboard.cards.hotspot.label_template') }}</span>
-                                        <span
-                                            class="text-dark fw-bold">{{ __('dashboard.cards.hotspot.val_custom') }}</span>
-                                    </div>
-                                </x-slot>
-                            </x-service-card>
-                        </div>
-
-                        <!-- Card 5: IP Calc (Cyan Theme) -->
-                        <div class="coverflow-card" data-theme="cyan">
-                            <x-service-card :wrapCol="false" theme="info" icon="calculate"
-                                :title="__('dashboard.cards.ip_calc.title')"
-                                :description="__('dashboard.cards.ip_calc.desc')"
-                                :badge="__('dashboard.cards.ip_calc.badge')" :features="[
-            ['icon' => 'grid_on', 'label' => __('dashboard.cards.ip_calc.list.subnet')],
-            ['icon' => 'dns', 'label' => __('dashboard.cards.ip_calc.list.vlsm')],
-            ['icon' => 'public', 'label' => __('dashboard.cards.ip_calc.list.support')]
-        ]"
-                                :btnLink="route('mikrotik-suite.utilities.calculators.ip')"
-                                :btnText="__('dashboard.cards.ip_calc.btn')"
-                                btnClass="btn-outline-info text-dark bg-white bg-opacity-50">
-                                <x-slot name="footer">
-                                    <div class="d-flex justify-content-between small">
-                                        <span class="text-secondary">{{ __('dashboard.cards.ip_calc.label_type') }}</span>
-                                        <span class="text-dark fw-bold">{{ __('dashboard.cards.ip_calc.val_ipv46') }}</span>
-                                    </div>
-                                </x-slot>
-                            </x-service-card>
-                        </div>
-                    </div>
-
-                    <!-- Navigation Controls -->
-                    <button class="nav-btn prev position-absolute top-50 start-0 ms-4 z-index-1">
-                        <span class="material-icons-outlined text-dark fs-5">chevron_left</span>
-                    </button>
-                    <button class="nav-btn next position-absolute top-50 end-0 me-4 z-index-1">
-                        <span class="material-icons-outlined text-dark fs-5">chevron_right</span>
+                    <button class="w-full bg-white text-indigo-600 font-bold py-4 rounded-2xl shadow-lg hover:shadow-xl hover:bg-indigo-50 transition-all duration-300 flex items-center justify-center gap-2 group">
+                        <i class="material-icons-outlined group-hover:scale-110 transition-transform">add_circle</i>
+                        Generate Voucher
                     </button>
                 </div>
             </div>
+
+            {{-- Activity List --}}
+            <div class="bg-white rounded-[2.5rem] p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 flex-1">
+                <h3 class="text-lg font-bold text-slate-800 mb-6">Recent Activity</h3>
+                <div class="space-y-6">
+                    @foreach(range(1, 3) as $i)
+                        <div class="flex items-center gap-4">
+                            <div class="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center border border-slate-100">
+                                <i class="material-icons-outlined text-slate-400 text-sm">history</i>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm font-bold text-slate-700">User Login</p>
+                                <p class="text-xs text-slate-400">2 minutes ago</p>
+                            </div>
+                            <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
         </div>
     </div>
-
-    <!-- Service Catalog (Layanan Jasa) -->
-    <div
-        class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-end mb-4 px-2 gap-3">
-        <div>
-            <h5 class="mb-0 fw-bold text-theme-main tracking-tight d-flex align-items-center gap-2">
-                <span class="material-icons-outlined text-brand fs-4">storage</span>
-                {{ __('dashboard.services.title') }}
-            </h5>
-            <p class="text-theme-secondary small mb-0 mt-1 ms-1">{{ __('dashboard.services.subtitle') }}</p>
-        </div>
-        <div>
-            <a href="javascript:;"
-                class="btn btn-sm rounded-pill px-4 fw-bold border-0 bg-brand-soft text-brand transition-hover shadow-sm">
-                {{ __('dashboard.services.view_all') }} <span
-                    class="material-icons-outlined align-middle fs-6 ms-1">arrow_forward</span>
-            </a>
-        </div>
-    </div>
-
-    <div class="row g-3">
-        <!-- Service Card 1: Network Setup (Blue) -->
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="card h-100 border-0 shadow-sm transition-hover overflow-hidden">
-                <div class="bg-primary bg-opacity-10 p-3 text-center position-relative overflow-hidden"
-                    style="height: 120px;">
-                    <!-- Decorative Icon Faded -->
-                    <div class="position-absolute top-50 start-50 translate-middle opacity-25">
-                        <span class="material-icons-outlined text-primary" style="font-size: 6rem;">hub</span>
-                    </div>
-                    <!-- Central Content -->
-                    <div
-                        class="position-relative z-index-1 h-100 d-flex flex-column justify-content-center align-items-center">
-                        <span class="material-icons-outlined text-primary fs-2 mb-1">hub</span>
-                        <div class="fw-bold text-primary small tracking-wide" style="font-size: 0.7rem;">FULL NETWORK SETUP
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body p-3 d-flex flex-column">
-                    <h5 class="fw-bold mb-2 text-theme-main">{{ __('dashboard.services.full_setup.title') }}</h5>
-                    <p class="text-theme-secondary small mb-4 line-clamp-2">{{ __('dashboard.services.full_setup.desc') }}
-                    </p>
-
-                    <div class="mt-auto d-flex align-items-center justify-content-between">
-                        <div>
-                            <small class="text-theme-secondary d-block text-uppercase fw-bold opacity-75"
-                                style="font-size: 10px; letter-spacing: 0.5px;">{{ __('dashboard.services.full_setup.starting_from') }}</small>
-                            <span class="fw-bold text-theme-main">{{ __('dashboard.services.full_setup.price') }}</span>
-                        </div>
-                        <a href="https://wa.me/6281234567890?text=I%20want%20Mikrotik%20Full%20Setup" target="_blank"
-                            class="btn btn-primary rounded-pill btn-sm px-4 fw-bold shadow-sm">
-                            {{ __('dashboard.services.full_setup.btn') }}
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Service Card 2: Security (Green) -->
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="card h-100 border-0 shadow-sm transition-hover overflow-hidden">
-                <div class="bg-primary bg-opacity-10 p-3 text-center position-relative overflow-hidden"
-                    style="height: 120px;">
-                    <div class="position-absolute top-50 start-50 translate-middle opacity-25">
-                        <span class="material-icons-outlined text-primary" style="font-size: 6rem;">security</span>
-                    </div>
-                    <div
-                        class="position-relative z-index-1 h-100 d-flex flex-column justify-content-center align-items-center">
-                        <span class="material-icons-outlined text-primary fs-2 mb-1">shield</span>
-                        <div class="fw-bold text-primary small tracking-wide" style="font-size: 0.7rem;">SECURITY HARDENING
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body p-3 d-flex flex-column">
-                    <h5 class="fw-bold mb-2 text-theme-main">{{ __('dashboard.services.security_setup.title') }}</h5>
-                    <p class="text-theme-secondary small mb-4 line-clamp-2">
-                        {{ __('dashboard.services.security_setup.desc') }}
-                    </p>
-
-                    <div class="mt-auto d-flex align-items-center justify-content-between">
-                        <div>
-                            <small class="text-theme-secondary d-block text-uppercase fw-bold opacity-75"
-                                style="font-size: 10px; letter-spacing: 0.5px;">{{ __('dashboard.services.full_setup.starting_from') }}</small>
-                            <span class="fw-bold text-theme-main">{{ __('dashboard.services.security_setup.price') }}</span>
-                        </div>
-                        <a href="https://wa.me/6281234567890?text=I%20want%20Security%20Hardening" target="_blank"
-                            class="btn btn-primary rounded-pill btn-sm px-4 fw-bold shadow-sm">
-                            {{ __('dashboard.services.full_setup.btn') }}
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Service Card 3: VPN (Yellow) -->
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="card h-100 border-0 shadow-sm transition-hover overflow-hidden">
-                <div class="bg-primary bg-opacity-10 p-3 text-center position-relative overflow-hidden"
-                    style="height: 120px;">
-                    <div class="position-absolute top-50 start-50 translate-middle opacity-25">
-                        <span class="material-icons-outlined text-primary" style="font-size: 6rem;">vpn_key</span>
-                    </div>
-                    <div
-                        class="position-relative z-index-1 h-100 d-flex flex-column justify-content-center align-items-center">
-                        <span class="material-icons-outlined text-primary fs-2 mb-1">vpn_lock</span>
-                        <div class="fw-bold text-primary small tracking-wide" style="font-size: 0.7rem;">REMOTE ACCESS</div>
-                    </div>
-                </div>
-                <div class="card-body p-3 d-flex flex-column">
-                    <h5 class="fw-bold mb-2 text-theme-main">{{ __('dashboard.services.vpn_setup.title') }}</h5>
-                    <p class="text-theme-secondary small mb-4 line-clamp-2">{{ __('dashboard.services.vpn_setup.desc') }}
-                    </p>
-
-                    <div class="mt-auto d-flex align-items-center justify-content-between">
-                        <div>
-                            <small class="text-theme-secondary d-block text-uppercase fw-bold opacity-75"
-                                style="font-size: 10px; letter-spacing: 0.5px;">{{ __('dashboard.services.full_setup.starting_from') }}</small>
-                            <span class="fw-bold text-theme-main">{{ __('dashboard.services.vpn_setup.price') }}</span>
-                        </div>
-                        <a href="https://wa.me/6281234567890?text=I%20want%20VPN%20Setup" target="_blank"
-                            class="btn btn-primary rounded-pill btn-sm px-4 fw-bold shadow-sm">
-                            {{ __('dashboard.services.full_setup.btn') }}
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Service Card 4 (Custom - Dark) -->
-        <!-- Service Card 4 (Custom - Brand) -->
-        <div class="col-12 col-md-6 col-xl-3">
-            <div class="card h-100 border-0 shadow-sm transition-hover overflow-hidden">
-                <div class="bg-brand-soft p-3 text-center position-relative overflow-hidden" style="height: 120px;">
-                    <div class="position-absolute top-50 start-50 translate-middle opacity-25">
-                        <span class="material-icons-outlined text-brand" style="font-size: 6rem;">support_agent</span>
-                    </div>
-                    <div
-                        class="position-relative z-index-1 h-100 d-flex flex-column justify-content-center align-items-center">
-                        <span class="material-icons-outlined text-brand fs-2 mb-1">support_agent</span>
-                        <div class="fw-bold text-brand small tracking-wide" style="font-size: 0.7rem;">CUSTOM REQUEST
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body p-3 d-flex flex-column">
-                    <h5 class="fw-bold mb-2 text-theme-main">{{ __('dashboard.services.custom.title') }}</h5>
-                    <p class="text-theme-secondary small mb-4 line-clamp-2">
-                        {{ __('dashboard.services.custom.desc') }}
-                    </p>
-
-                    <div class="mt-auto w-100">
-                        <a href="https://wa.me/6281234567890" target="_blank"
-                            class="btn btn-brand w-100 rounded-pill btn-sm px-4 fw-bold shadow-brand text-white">
-                            {{ __('dashboard.services.custom.btn') }}
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    @push('css')
-        @vite('resources/css/dashboard.css')
-    @endpush
-
-    @push('scripts')
-        @vite('resources/js/dashboard.js')
-    @endpush
-
+</div>
 @endsection

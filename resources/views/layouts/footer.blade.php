@@ -20,7 +20,7 @@
 
       <span class="text-secondary opacity-25 small">|</span>
 
-      <a href="{{ route('documentation') }}"
+      <a href="{{ route('documentation.show') }}"
         class="text-secondary text-decoration-none small hover-primary transition-all fw-medium">
         {{ __('common.documentation') }}
       </a>

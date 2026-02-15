@@ -1,108 +1,86 @@
 @extends('layouts.guest')
-@section('title', __('auth.sign_in'))
 
 @section('content')
-    <!-- Background Effects -->
-    <div class="auth-bg">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-    </div>
+<div class="min-h-screen flex items-center justify-center p-6 bg-[#F0F2F5] relative overflow-hidden">
 
-    <div class="d-flex align-items-center justify-content-center min-vh-100 p-4">
+    {{-- Background Blobs --}}
+    <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-indigo-400/20 rounded-full blur-[100px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-purple-400/20 rounded-full blur-[100px]"></div>
 
-        <div class="glass-card w-100 p-4 p-md-5 animate__animated animate__fadeInUp" style="max-width: 500px;">
+    <div class="w-full max-w-md bg-white/80 backdrop-blur-xl rounded-[2.5rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-8 md:p-10 relative z-10 border border-white/50">
 
-            <!-- Logo & Header -->
-            <div class="text-center mb-4">
-                <img src="{{ URL::asset('build/images/logo1.png') }}" class="mb-4" width="80" alt="Logo"
-                    style="filter: brightness(200%);">
-                <h3 class="fw-bold mb-1">{{ __('auth.welcome_back') }}</h3>
-                <p class="text-muted small">{{ __('auth.welcome_message') }}</p>
+        {{-- Header --}}
+        <div class="text-center mb-10">
+            <div class="w-16 h-16 bg-indigo-600 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-indigo-600/30 mx-auto mb-6 transform rotate-3">
+                <span class="font-bold text-3xl">N</span>
+            </div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Welcome Back</h2>
+            <p class="text-slate-500 text-sm">Sign in to access your NetFusion dashboard</p>
+        </div>
+
+        <form method="POST" action="{{ route('login') }}" class="space-y-6">
+            @csrf
+
+            {{-- Email --}}
+            <div class="space-y-2">
+                <label for="email" class="text-xs font-bold text-slate-500 uppercase tracking-wider ml-1">Email Address</label>
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="material-icons-outlined text-slate-400 group-focus-within:text-indigo-500 transition-colors">email</i>
+                    </div>
+                    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
+                        class="block w-full pl-11 pr-4 py-4 bg-slate-50 border-0 rounded-2xl text-slate-600 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500/20 focus:bg-white transition-all font-medium"
+                        placeholder="name@company.com">
+                </div>
+                @error('email')
+                    <p class="text-red-500 text-xs mt-1 ml-1 font-medium">{{ $message }}</p>
+                @enderror
             </div>
 
-            <form method="POST" action="{{ route('login.post') }}">
-                @csrf
-                <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
-
-                <!-- Email Input -->
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com"
-                        required>
-                    <label for="email">{{ __('auth.email_address') }}</label>
-                    @error('email')
-                        <span class="invalid-feedback d-block" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <!-- Password Input -->
-                <div class="form-floating mb-3 position-relative">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
-                        required>
-                    <label for="password">{{ __('auth.password_label') }}</label>
-                    <span
-                        class="position-absolute top-50 end-0 translate-middle-y me-3 text-muted cursor-pointer password-toggle-icon"
-                        data-target="password">
-                        <i class="bi bi-eye-slash-fill"></i>
-                    </span>
-                    @error('password')
-                        <span class="invalid-feedback d-block mt-2" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-
-                <!-- Remember & Forgot -->
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="rememberMe" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                        <label class="form-check-label small text-muted"
-                            for="rememberMe">{{ __('auth.remember_me') }}</label>
-                    </div>
+            {{-- Password --}}
+            <div class="space-y-2">
+                <div class="flex justify-between items-center ml-1">
+                    <label for="password" class="text-xs font-bold text-slate-500 uppercase tracking-wider">Password</label>
                     @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}"
-                            class="text-link-glow small fw-bold">{{ __('auth.forgot_password') }}</a>
+                        <a href="{{ route('password.request') }}" class="text-xs font-semibold text-indigo-600 hover:text-indigo-700">Forgot?</a>
                     @endif
                 </div>
-
-                <!-- Submit -->
-                <div class="d-grid mb-4">
-                    <button type="submit" class="btn btn-primary-glow btn-lg">
-                        {{ __('auth.sign_in') }}
-                    </button>
-                </div>
-
-                <!-- Social Login -->
-                <div class="text-center mb-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <hr class="flex-grow-1 my-0 opacity-25 border-light">
-                        <span class="px-3 text-muted small fw-bold">{{ __('auth.or_login_with') }}</span>
-                        <hr class="flex-grow-1 my-0 opacity-25 border-light">
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="material-icons-outlined text-slate-400 group-focus-within:text-indigo-500 transition-colors">lock</i>
                     </div>
-                    <div class="d-flex gap-2 justify-content-center">
-                        @foreach(['google', 'facebook', 'apple', 'github'] as $provider)
-                            <a href="{{ route('social.redirect', $provider) }}"
-                                class="btn btn-dark rounded-circle shadow-sm d-flex align-items-center justify-content-center border border-light border-opacity-10"
-                                style="width: 48px; height: 48px; background: rgba(255,255,255,0.05);">
-                                <i class="bi bi-{{ $provider }} fs-5 text-white"></i>
-                            </a>
-                        @endforeach
-                    </div>
+                    <input id="password" type="password" name="password" required autocomplete="current-password"
+                        class="block w-full pl-11 pr-4 py-4 bg-slate-50 border-0 rounded-2xl text-slate-600 placeholder-slate-400 focus:ring-2 focus:ring-indigo-500/20 focus:bg-white transition-all font-medium"
+                        placeholder="••••••••">
                 </div>
+                @error('password')
+                    <p class="text-red-500 text-xs mt-1 ml-1 font-medium">{{ $message }}</p>
+                @enderror
+            </div>
 
-                <!-- Footer -->
-                <div class="text-center">
-                    <p class="text-muted small mb-0">{{ __('auth.no_account') }}
-                        <a href="{{ route('register') }}" class="text-link-glow fw-bold ms-1">{{ __('auth.sign_up') }}</a>
-                    </p>
-                </div>
+            {{-- Remember Me --}}
+            <div class="flex items-center ml-1">
+                <input id="remember_me" type="checkbox" name="remember"
+                    class="rounded-lg border-slate-300 text-indigo-600 shadow-sm focus:ring-indigo-500/20 w-5 h-5 cursor-pointer">
+                <label for="remember_me" class="ml-3 block text-sm text-slate-600 font-medium cursor-pointer">
+                    Keep me logged in
+                </label>
+            </div>
 
-            </form>
+            {{-- Submit --}}
+            <button type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-600/30 transform hover:-translate-y-0.5 transition-all duration-200">
+                Sign In
+            </button>
+        </form>
+
+        {{-- Footer --}}
+        <div class="mt-8 text-center">
+            <p class="text-slate-500 text-sm">
+                Don't have an account?
+                <a href="{{ route('register') }}" class="font-bold text-indigo-600 hover:text-indigo-700 ml-1">Create Account</a>
+            </p>
         </div>
     </div>
+</div>
 @endsection
-
-@push('script')
-    @vite(['resources/js/pages/auth/auth.js'])
-@endpush

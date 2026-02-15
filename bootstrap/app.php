@@ -26,6 +26,9 @@ return Application::configure(basePath: dirname(__DIR__))
                 ->prefix('account')
                 ->name('account.')
                 ->group(base_path('routes/security.php'));
+
+            Route::middleware(['web'])
+                ->group(base_path('routes/fallback.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware) {

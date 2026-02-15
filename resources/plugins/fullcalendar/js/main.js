@@ -8675,13 +8675,7 @@ var FullCalendar = (function (exports) {
             }
             return refCallback;
         };
-        // TODO: check callers that don't care about order. should use getAll instead
-        // NOTE: this method has become less valuable now that we are encouraged to map order by some other index
-        // TODO: provide ONE array-export function, buildArray, which fails on non-numeric indexes. caller can manipulate and "collect"
-        RefMap.prototype.collect = function (startIndex, endIndex, step) {
-            return collectFromHash(this.currentMap, startIndex, endIndex, step);
-        };
-        RefMap.prototype.getAll = function () {
+        RefMap.prototype.buildArray = function () {
             return hashValuesToArray(this.currentMap);
         };
         return RefMap;
@@ -8909,7 +8903,7 @@ var FullCalendar = (function (exports) {
         };
         SimpleScrollGrid.prototype.computeShrinkWidth = function () {
             return hasShrinkWidth(this.props.cols)
-                ? computeShrinkWidth(this.scrollerElRefs.getAll())
+                ? computeShrinkWidth(this.scrollerElRefs.buildArray())
                 : 0;
         };
         SimpleScrollGrid.prototype.computeScrollerDims = function () {
@@ -12330,7 +12324,7 @@ var FullCalendar = (function (exports) {
         // Hit System
         // ----------------------------------------------------------------------------------------------------
         Table.prototype.prepareHits = function () {
-            this.rowPositions = new PositionCache(this.rootEl, this.rowRefs.collect().map(function (rowObj) { return rowObj.getCellEls()[0]; }), // first cell el in each row. TODO: not optimal
+            this.rowPositions = new PositionCache(this.rootEl, this.rowRefs.buildArray().map(function (rowObj) { return rowObj.getCellEls()[0]; }), // first cell el in each row. TODO: not optimal
             false, true // vertical
             );
             this.colPositions = new PositionCache(this.rootEl, this.rowRefs.currentMap[0].getCellEls(), // cell els in first row

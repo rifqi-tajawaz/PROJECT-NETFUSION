@@ -1,716 +1,245 @@
 $(function() {
 	"use strict";
 
+    // Helper functions
+    const renderSparkline = (selector, data, color, type = 'area', height = 50, width = 150) => {
+        const options = {
+            series: [{ name: "Desktops", data: data }],
+            chart: {
+                height: height,
+                type: type,
+                sparkline: { enabled: true },
+                zoom: { enabled: false }
+            },
+            dataLabels: { enabled: false },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'dark',
+                    gradientToColors: [color],
+                    shadeIntensity: 1,
+                    type: 'vertical',
+                    opacityFrom: 0.8,
+                    opacityTo: 0.1,
+                    stops: [0, 100, 100, 100]
+                },
+            },
+            colors: [color],
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            }
+        };
 
-     // chart 1
-     const options = {
-        series: [{
-          name: "Desktops",
-          data: [4, 41, 35, 51, 25, 8]
-      }],
-        chart: {
-        width:150,
-        height: 50,
-        type: 'area',
-        sparkline: {
-            enabled: !0
-        },
-        zoom: {
-          enabled: false
+        if (width) {
+            options.chart.width = width;
         }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        width: 2,
-        curve: 'smooth'
-      },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: 'dark',
-          gradientToColors: [ '#0d6efd'],
-          shadeIntensity: 1,
-          type: 'vertical',
-          opacityFrom: 0.8,
-          opacityTo: 0.1,
-          stops: [0, 100, 100, 100]
-        },
-      },
 
-      colors: ["#0d6efd"],
-     
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      }
-      };
+        // Default stroke for sparklines
+        options.stroke = { width: 2, curve: 'smooth' };
 
-      const chart = new ApexCharts(document.querySelector("#chart1"), options);
-      chart.render();
-
-
-
-
-     // chart 2
-     const options = {
-        series: [{
-          name: "Desktops",
-          data: [10, 41, 30, 51, 25, 15]
-      }],
-        chart: {
-        width:150,
-        height: 50,
-        type: 'bar',
-        sparkline: {
-            enabled: !0
-        },
-        zoom: {
-          enabled: false
+        // Special case for Chart 11 (Bar with plotOptions)
+        if (selector === '#chart11') {
+             options.plotOptions = {
+                bar: { columnWidth: "45%", endingShape: "rounded" }
+            };
+            delete options.stroke; // Chart 11 had stroke commented out
         }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        width: 2,
-        curve: 'smooth'
-      },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: 'dark',
-          gradientToColors: ['#fc185a'],
-          shadeIntensity: 1,
-          type: 'vertical',
-          opacityFrom: 0.8,
-          opacityTo: 0.1,
-          stops: [0, 100, 100, 100]
-        },
-      },
 
-      colors: ["#fc185a"],
-     
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      }
-      };
-
-      const chart = new ApexCharts(document.querySelector("#chart2"), options);
-      chart.render();
-
-
-
-     // chart 3
-     const options = {
-        series: [{
-          name: "Desktops",
-          data: [4, 41, 35, 51, 25, 8]
-      }],
-        chart: {
-        width:150,
-        height: 50,
-        type: 'area',
-        sparkline: {
-            enabled: !0
-        },
-        zoom: {
-          enabled: false
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        width: 2,
-        curve: 'smooth'
-      },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: 'dark',
-          gradientToColors: ['#02c27a'],
-          shadeIntensity: 1,
-          type: 'vertical',
-          opacityFrom: 0.8,
-          opacityTo: 0.1,
-          stops: [0, 100, 100, 100]
-        },
-      },
-
-      colors: ["#02c27a"],
-     
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      }
-      };
-
-      const chart = new ApexCharts(document.querySelector("#chart3"), options);
-      chart.render();
-     const options = {
-        series: [{
-          name: "Desktops",
-          data: [14, 41, 35, 51, 25, 18]
-      }],
-        chart: {
-        width:150,
-        height: 50,
-        type: 'bar',
-        sparkline: {
-            enabled: !0
-        },
-        zoom: {
-          enabled: false
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        width: 2,
-        curve: 'smooth'
-      },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: 'dark',
-          gradientToColors: ['#fd7e14'],
-          shadeIntensity: 1,
-          type: 'vertical',
-          opacityFrom: 0.8,
-          opacityTo: 0.1,
-          stops: [0, 100, 100, 100]
-        },
-      },
-
-      colors: ["#fd7e14"],
-     
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      }
-      };
-
-      const chart = new ApexCharts(document.querySelector("#chart4"), options);
-      chart.render();
-
-     const options = {
-        series: [{
-          name: "Desktops",
-          data: [14, 41, 35, 51, 25, 18, 21, 35, 15]
-      }],
-        chart: {
-        foreColor: "#eee",
-        height: 200,
-        type: 'bar',
-        toolbar: {
-            show: !1
-        },
-        sparkline: {
-            enabled: !1
-        },
-        zoom: {
-          enabled: false
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        width: 2,
-        curve: 'smooth'
-      },
-      plotOptions: {
-        bar: {
-            columnWidth: "45%",
-            endingShape: "rounded"
-        }
-    },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: 'dark',
-          gradientToColors: ['#fff'],
-          shadeIntensity: 1,
-          type: 'vertical',
-          opacityFrom: 0.8,
-          opacityTo: 0.1,
-          stops: [0, 100, 100, 100]
-        },
-      },
-      colors: ["#fff"],
-      grid: {
-        show: true,
-        borderColor: 'rgba(255, 255, 255, 0.15)',
-      },
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      }
-      };
-
-      const chart = new ApexCharts(document.querySelector("#chart5"), options);
-      chart.render();
-
-
-
-    // chart 6
-      series: [44, 55, 41],
-      chart: {
-          height: 237,
-          type: 'donut',
-      },
-      legend: {
-          position: 'bottom',
-          show: !1
-      },
-      colors: ["#fff", "rgba(255, 255, 255, 0.70)", "rgba(255, 255, 255, 0.20)"],
-  dataLabels: {
-    enabled: !1
-  },
-      plotOptions: {
-    pie: {
-      donut: {
-        size: "80%"
-      }
-    }
-  },
-      responsive: [{
-          breakpoint: 480,
-          options: {
-              chart: {
-                  height: 200
-              },
-              legend: {
-                  position: 'bottom',
-                  show: !0
-              }
-          }
-      }]
-  };
-
-  const chart = new ApexCharts(document.querySelector("#chart6"), options);
-  chart.render();
-  
-
-
-
-     // chart 7
-     const options = {
-        series: [{
-          name: "Desktops",
-          data: [14, 41, 35, 51, 25, 40, 21, 35, 15]
-      }],
-        chart: {
-        foreColor: "#eee",
-        height: 200,
-        type: 'area',
-        toolbar: {
-            show: !1
-        },
-        sparkline: {
-            enabled: !1
-        },
-        zoom: {
-          enabled: false
-        }
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        width: 2,
-        curve: 'smooth'
-      },
-      plotOptions: {
-        bar: {
-            columnWidth: "45%",
-            endingShape: "rounded"
-        }
-    },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: 'dark',
-          gradientToColors: ['#fff'],
-          shadeIntensity: 1,
-          type: 'vertical',
-          opacityFrom: 0.8,
-          opacityTo: 0.1,
-          stops: [0, 100, 100, 100]
-        },
-      },
-      colors: ["#fff"],
-      grid: {
-        show: true,
-        borderColor: 'rgba(255, 255, 255, 0.15)',
-      },
-      xaxis: {
-        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-      }
-      };
-
-      const chart = new ApexCharts(document.querySelector("#chart7"), options);
-      chart.render();
-     const options = {
-      series: [{
-        name: "Desktops",
-        data: [20, 50, 25, 65, 22, 45]
-    }],
-      chart: {
-     // width:150,
-      height: 85,
-      type: 'area',
-      sparkline: {
-          enabled: !0
-      },
-      zoom: {
-        enabled: false
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    stroke: {
-      width: 2,
-      curve: 'smooth'
-    },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shade: 'dark',
-        gradientToColors: ['#6f42c1'],
-        shadeIntensity: 1,
-        type: 'vertical',
-        opacityFrom: 0.8,
-        opacityTo: 0.1,
-        stops: [0, 100, 100, 100]
-      },
-    },
-
-    colors: ["#6f42c1"],
-   
-    xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-    }
+        new ApexCharts(document.querySelector(selector), options).render();
     };
 
-    const chart = new ApexCharts(document.querySelector("#chart8"), options);
-    chart.render();
-
-
-
-
-// chart 9
-  series: [{
-    name: "Desktops",
-    data: [24, 41, 35, 51, 25, 15]
-}],
-  chart: {
- // width:150,
-  height: 85,
-  type: 'area',
-  sparkline: {
-      enabled: !0
-  },
-  zoom: {
-    enabled: false
-  }
-},
-dataLabels: {
-  enabled: false
-},
-stroke: {
-  width: 2,
-  curve: 'smooth'
-},
-fill: {
-  type: 'gradient',
-  gradient: {
-    shade: 'dark',
-    gradientToColors: ['#ffc107'],
-    shadeIntensity: 1,
-    type: 'vertical',
-    opacityFrom: 0.8,
-    opacityTo: 0.1,
-    stops: [0, 100, 100, 100]
-  },
-},
-
-colors: ["#ffc107"],
-
-xaxis: {
-  categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-}
-};
-
-const chart = new ApexCharts(document.querySelector("#chart9"), options);
-chart.render();
-  series: [75],
-  chart: {
-  height: 310,
-  type: 'radialBar',
-  toolbar: {
-    show: false
-  }
-},
-plotOptions: {
-  radialBar: {
-    startAngle: -135,
-    endAngle: 225,
-     hollow: {
-      margin: 0,
-      size: '80%',
-      background: 'transparent',
-      image: undefined,
-      imageOffsetX: 0,
-      imageOffsetY: 0,
-      position: 'front',
-      dropShadow: {
-        enabled: false,
-        top: 3,
-        left: 0,
-        blur: 4,
-        opacity: 0.24
-      }
-    },
-    track: {
-      background: 'rgba(0, 0, 0, 0.1)',
-      strokeWidth: '67%',
-      margin: 0, // margin is in pixels
-      dropShadow: {
-        enabled: false,
-        top: -3,
-        left: 0,
-        blur: 4,
-        opacity: 0.35
-      }
-    },
-
-    dataLabels: {
-      show: true,
-      name: {
-        offsetY: -10,
-        show: true,
-        color: '#888',
-        fontSize: '17px'
-      },
-      value: {
-        formatter: function(val) {
-          return parseInt(val);
-        },
-        color: '#111',
-        fontSize: '36px',
-        show: true,
-      }
-    }
-  }
-},
-fill: {
-  type: 'gradient',
-  gradient: {
-    shade: 'dark',
-    type: 'horizontal',
-    shadeIntensity: 0.5,
-    gradientToColors: ['#fc185a'],
-    inverseColors: true,
-    opacityFrom: 1,
-    opacityTo: 1,
-    stops: [0, 100]
-  }
-},
-colors: ["#fd7e14"],
-stroke: {
-  lineCap: 'round'
-},
-labels: ['Total Leads'],
-};
-
-const chart = new ApexCharts(document.querySelector("#chart10"), options);
-chart.render();
-
-
-
-
-   // chart 11
-     const options = {
-      series: [{
-        name: "Desktops",
-        data: [20, 41, 30, 51, 25, 60, 35, 54, 26, 18, 22, 43]
-    }],
-      chart: {
-      //width:150,
-      height: 210,
-      type: 'bar',
-      sparkline: {
-          enabled: !0
-      },
-      zoom: {
-        enabled: false
-      }
-    },
-    dataLabels: {
-      enabled: false
-    },
-    // stroke: {
-    //   width: 2,
-    //   curve: 'smooth'
-    // },
-    plotOptions: {
-      bar: {
-          columnWidth: "45%",
-          endingShape: "rounded"
-      }
-  },
-    fill: {
-      type: 'gradient',
-      gradient: {
-        shade: 'dark',
-        gradientToColors: ['#02c27a'],
-        shadeIntensity: 1,
-        type: 'vertical',
-        //opacityFrom: 0.8,
-        //opacityTo: 0.1,
-        stops: [0, 100, 100, 100]
-      },
-    },
-
-    colors: ["#02c27a"],
-   
-    xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
-    }
+    const renderBarChart = (selector, data, color, height = 200) => {
+         const options = {
+            series: [{ name: "Desktops", data: data }],
+            chart: {
+                foreColor: "#eee",
+                height: height,
+                type: 'bar',
+                toolbar: { show: false },
+                sparkline: { enabled: false },
+                zoom: { enabled: false }
+            },
+            dataLabels: { enabled: false },
+            stroke: { width: 2, curve: 'smooth' },
+            plotOptions: {
+                bar: { columnWidth: "45%", endingShape: "rounded" }
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'dark',
+                    gradientToColors: ['#fff'],
+                    shadeIntensity: 1,
+                    type: 'vertical',
+                    opacityFrom: 0.8,
+                    opacityTo: 0.1,
+                    stops: [0, 100, 100, 100]
+                },
+            },
+            colors: [color],
+            grid: { show: true, borderColor: 'rgba(255, 255, 255, 0.15)' },
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            }
+        };
+        new ApexCharts(document.querySelector(selector), options).render();
     };
 
-    const chart = new ApexCharts(document.querySelector("#chart11"), options);
-    chart.render();
+    const renderDonut = (selector, series, colors, height = 237, size = '80%', responsiveHeight = null) => {
+        const respHeight = responsiveHeight !== null ? responsiveHeight : (height - 37);
+        const options = {
+            series: series,
+            chart: { height: height, type: 'donut' },
+            legend: { position: 'bottom', show: false },
+            colors: colors,
+            dataLabels: { enabled: false },
+            plotOptions: { pie: { donut: { size: size } } },
+            responsive: [{
+                breakpoint: 480,
+                options: {
+                    chart: { height: respHeight },
+                    legend: { position: 'bottom', show: true }
+                }
+            }]
+        };
 
+        if (selector === '#chart13') {
+            options.responsive[0].options.legend.show = false;
+        }
 
+        new ApexCharts(document.querySelector(selector), options).render();
+    };
 
-// chart 12
-  series: [85],
-  chart: {
-  height: 300,
-  type: 'radialBar',
-  toolbar: {
-    show: false
-  }
-},
-plotOptions: {
-  radialBar: {
-    startAngle: -90,
-    endAngle: 90,
-     hollow: {
-      margin: 0,
-      size: '80%',
-      background: 'transparent',
-      image: undefined,
-      imageOffsetX: 0,
-      imageOffsetY: 0,
-      position: 'front',
-      dropShadow: {
-        enabled: false,
-        top: 3,
-        left: 0,
-        blur: 4,
-        opacity: 0.24
-      }
-    },
-    track: {
-      background: 'rgba(0, 0, 0, 0.1)',
-      strokeWidth: '67%',
-      margin: 0, // margin is in pixels
-      dropShadow: {
-        enabled: false,
-        top: -3,
-        left: 0,
-        blur: 4,
-        opacity: 0.35
-      }
-    },
+    const renderRadial = (selector, value, color, label, gradientToColor, height = 310, startAngle = -135, endAngle = 225) => {
+         const options = {
+            series: [value],
+            chart: { height: height, type: 'radialBar', toolbar: { show: false } },
+            plotOptions: {
+                radialBar: {
+                    startAngle: startAngle,
+                    endAngle: endAngle,
+                    hollow: {
+                        margin: 0,
+                        size: '80%',
+                        background: 'transparent',
+                        image: undefined,
+                        imageOffsetX: 0,
+                        imageOffsetY: 0,
+                        position: 'front',
+                        dropShadow: { enabled: false, top: 3, left: 0, blur: 4, opacity: 0.24 }
+                    },
+                    track: {
+                        background: 'rgba(0, 0, 0, 0.1)',
+                        strokeWidth: '67%',
+                        margin: 0,
+                        dropShadow: { enabled: false, top: -3, left: 0, blur: 4, opacity: 0.35 }
+                    },
+                    dataLabels: {
+                        show: true,
+                        name: { offsetY: -10, show: true, color: '#888', fontSize: '17px' },
+                        value: {
+                            formatter: function(val) { return parseInt(val); },
+                            color: '#111',
+                            fontSize: '36px',
+                            show: true,
+                        }
+                    }
+                }
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'dark',
+                    type: 'horizontal',
+                    shadeIntensity: 0.5,
+                    gradientToColors: [gradientToColor],
+                    inverseColors: true,
+                    opacityFrom: 1,
+                    opacityTo: 1,
+                    stops: [0, 100]
+                }
+            },
+            colors: [color],
+            stroke: { lineCap: 'round' },
+            labels: [label],
+        };
 
-    dataLabels: {
-      show: true,
-      name: {
-        offsetY: -10,
-        show: true,
-        color: '#888',
-        fontSize: '17px'
-      },
-      value: {
-        formatter: function(val) {
-          return parseInt(val);
-        },
-        color: '#111',
-        fontSize: '36px',
-        show: true,
-      }
-    }
-  }
-},
-fill: {
-  type: 'gradient',
-  gradient: {
-    shade: 'dark',
-    type: 'horizontal',
-    shadeIntensity: 0.5,
-    gradientToColors: ['#0866ff'],
-    inverseColors: true,
-    opacityFrom: 1,
-    opacityTo: 1,
-    stops: [0, 100]
-  }
-},
-colors: ["#fc185a"],
-stroke: {
-  lineCap: 'round'
-},
-labels: ['Total Orders'],
-};
+        new ApexCharts(document.querySelector(selector), options).render();
+    };
 
-const chart = new ApexCharts(document.querySelector("#chart12"), options);
-chart.render();
+    const renderAreaChart = (selector, data, color, height = 200) => {
+         const options = {
+            series: [{ name: "Desktops", data: data }],
+            chart: {
+                foreColor: "#eee",
+                height: height,
+                type: 'area',
+                toolbar: { show: false },
+                sparkline: { enabled: false },
+                zoom: { enabled: false }
+            },
+            dataLabels: { enabled: false },
+            stroke: { width: 2, curve: 'smooth' },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shade: 'dark',
+                    gradientToColors: ['#fff'],
+                    shadeIntensity: 1,
+                    type: 'vertical',
+                    opacityFrom: 0.8,
+                    opacityTo: 0.1,
+                    stops: [0, 100, 100, 100]
+                },
+            },
+            colors: [color],
+            grid: { show: true, borderColor: 'rgba(255, 255, 255, 0.15)' },
+            xaxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+            }
+        };
+        new ApexCharts(document.querySelector(selector), options).render();
+    };
 
+    // --- Chart Initializations ---
 
+    // chart 1 (Area, Sparkline)
+    renderSparkline("#chart1", [4, 41, 35, 51, 25, 8], "#0d6efd", 'area', 50);
 
-// chart 13
-  series: [270, 55, 41, 35],
-  chart: {
-      height: 275,
-      type: 'donut',
-  },
-  legend: {
-      position: 'bottom',
-      show: !1
-  },
-  colors: ["#0d6efd", "#fc185a", "#02c27a", "#fd7e14"],
-dataLabels: {
-enabled: !1
-},
-  plotOptions: {
-pie: {
-  donut: {
-    size: "85%"
-  }
-}
-},
-  responsive: [{
-      breakpoint: 480,
-      options: {
-          chart: {
-              height: 270
-          },
-          legend: {
-              position: 'bottom',
-              show: !1
-          }
-      }
-  }]
-};
+    // chart 2 (Bar, Sparkline)
+    renderSparkline("#chart2", [10, 41, 30, 51, 25, 15], "#fc185a", 'bar', 50);
 
-const chart = new ApexCharts(document.querySelector("#chart13"), options);
-chart.render();
+    // chart 3 (Area, Sparkline)
+    renderSparkline("#chart3", [4, 41, 35, 51, 25, 8], "#02c27a", 'area', 50);
 
+    // chart 4 (Bar, Sparkline)
+    renderSparkline("#chart4", [14, 41, 35, 51, 25, 18], "#fd7e14", 'bar', 50);
 
+    // chart 5 (Bar, Standard)
+    renderBarChart("#chart5", [14, 41, 35, 51, 25, 18, 21, 35, 15], "#fff");
 
+    // chart 6 (Donut)
+    renderDonut("#chart6", [44, 55, 41], ["#fff", "rgba(255, 255, 255, 0.70)", "rgba(255, 255, 255, 0.20)"], 237, '80%');
 
+    // chart 7 (Area, Standard)
+    renderAreaChart("#chart7", [14, 41, 35, 51, 25, 40, 21, 35, 15], "#fff");
+
+    // chart 8 (Area, Sparkline, Height 85)
+    renderSparkline("#chart8", [20, 50, 25, 65, 22, 45], "#6f42c1", 'area', 85, null);
+
+    // chart 9 (Area, Sparkline, Height 85)
+    renderSparkline("#chart9", [24, 41, 35, 51, 25, 15], "#ffc107", 'area', 85, null);
+
+    // chart 10 (RadialBar)
+    renderRadial("#chart10", 75, "#fd7e14", "Total Leads", "#fc185a", 310, -135, 225);
+
+    // chart 11 (Bar, Sparkline-ish, Height 210, Full Width)
+    renderSparkline("#chart11", [20, 41, 30, 51, 25, 60, 35, 54, 26, 18, 22, 43], "#02c27a", 'bar', 210, null);
+
+    // chart 12 (RadialBar)
+    renderRadial("#chart12", 85, "#fc185a", "Total Orders", "#0866ff", 300, -90, 90);
+
+    // chart 13 (Donut)
+    renderDonut("#chart13", [270, 55, 41, 35], ["#0d6efd", "#fc185a", "#02c27a", "#fd7e14"], 275, '85%', 270);
 
 });

@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->longText('content')->nullable(); // Markdown or HTML
+            $table->text('content')->nullable(); // Markdown or HTML
             $table->unsignedBigInteger('category_id')->nullable()->index(); // Can link to a categories table later if needed, or just be an ID for now
             $table->unsignedBigInteger('parent_id')->nullable()->index(); // For nested docs
             $table->boolean('is_published')->default(false);

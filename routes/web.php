@@ -139,6 +139,3 @@ Route::middleware(['auth'])->group(function () {
 
 // Load NetFusion Routes
 require __DIR__ . '/netfusion.php';
-
-// Catch-all Route
-Route::get('{any}', [HomeController::class, 'root'])->where('any', '.*');

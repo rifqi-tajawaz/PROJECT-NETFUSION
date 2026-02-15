@@ -53,6 +53,7 @@ export default defineConfig({
                 'resources/js/layouts/topbar.js',
                 'resources/css/dashboard.css',
                 'resources/js/dashboard.js',
+                'resources/js/data-widgets.js',
                 'resources/sass/pages/error.scss',
                 'resources/sass/pages/admin-support-center.scss',
                 // Wireless

@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS public.cache (
 CREATE TABLE IF NOT EXISTS public.jobs (
     id BIGSERIAL PRIMARY KEY,
     queue VARCHAR(255) NOT NULL,
-    payload LONGTEXT NOT NULL,
+    payload TEXT NOT NULL,
     attempts SMALLINT NOT NULL,
     reserved_at INTEGER,
     available_at INTEGER NOT NULL,

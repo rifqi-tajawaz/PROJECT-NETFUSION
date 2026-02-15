@@ -54,6 +54,7 @@ export default defineConfig({
                 'resources/css/dashboard.css',
                 'resources/js/dashboard.js',
                 'resources/sass/pages/error.scss',
+                'resources/sass/pages/admin-support-center.scss',
                 // Wireless
                 'resources/sass/pages/mikrotik-suite/wireless/link-planner.scss',
                 'resources/js/pages/mikrotik-suite/wireless/wireless-link-planner.js',

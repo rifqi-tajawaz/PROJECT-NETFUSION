@@ -147,8 +147,6 @@ $(function() {
             gradientToColors: ['#ffd200', '#00c6fb', '#7928ca'],
             shadeIntensity: 1,
             type: 'vertical',
-            //opacityFrom: 0.8,
-            //opacityTo: 0.1,
             stops: [0, 100, 100, 100]
         },
     },

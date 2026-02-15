@@ -567,8 +567,6 @@ chart.render();
         gradientToColors: ['#02c27a'],
         shadeIntensity: 1,
         type: 'vertical',
-        //opacityFrom: 0.8,
-        //opacityTo: 0.1,
         stops: [0, 100, 100, 100]
       },
     },

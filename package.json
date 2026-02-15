@@ -3,17 +3,25 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "test": "vitest"
     },
     "devDependencies": {
         "@popperjs/core": "^2.11.8",
         "autoprefixer": "^10.4.19",
         "axios": "^1.7.0",
+        "bootstrap": "^5.3.8",
+        "jquery": "^3.7.1",
+        "jsdom": "^28.1.0",
         "laravel-vite-plugin": "^1.0",
+        "metismenu": "^3.0.7",
+        "perfect-scrollbar": "^1.5.6",
         "postcss": "^8.4.38",
         "sass": "^1.97.3",
+        "simplebar": "^6.3.3",
         "tailwindcss": "^3.4.3",
-        "vite": "^5.2.0"
+        "vite": "^5.2.0",
+        "vitest": "^4.0.18"
     },
     "dependencies": {
         "@tailwindcss/forms": "^0.5.7",

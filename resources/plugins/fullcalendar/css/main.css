@@ -396,8 +396,6 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
     background: var(--fc-page-bg-color, #fff);
     position: -webkit-sticky;
     position: sticky;
-    z-index: var(--fc-sticky-z-index, 2);
-    /* TODO: box-shadow when sticking */
   }
 .fc .fc-scrollgrid-section-header.fc-scrollgrid-section-sticky > * {
     top: 0; /* because border-sharing causes a gap at the top */

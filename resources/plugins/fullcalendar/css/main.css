@@ -670,6 +670,8 @@ A HORIZONTAL event
 
 :root {
   --fc-daygrid-event-dot-width: 8px;
+  --fc-now-indicator-arrow-width: 6px;
+  --fc-now-indicator-arrow-vertical-radius: 5px;
 }
 .fc .fc-popover {
     position: fixed;
@@ -1286,16 +1288,16 @@ A VERTICAL event
 .fc-direction-ltr .fc-timegrid-now-indicator-arrow {
     left: 0;
 
-    /* triangle pointing right. TODO: mixin */
-    border-width: 5px 0 5px 6px;
+    /* triangle pointing right */
+    border-width: var(--fc-now-indicator-arrow-vertical-radius) 0 var(--fc-now-indicator-arrow-vertical-radius) var(--fc-now-indicator-arrow-width);
     border-top-color: transparent;
     border-bottom-color: transparent;
   }
 .fc-direction-rtl .fc-timegrid-now-indicator-arrow {
     right: 0;
 
-    /* triangle pointing left. TODO: mixin */
-    border-width: 5px 6px 5px 0;
+    /* triangle pointing left */
+    border-width: var(--fc-now-indicator-arrow-vertical-radius) var(--fc-now-indicator-arrow-width) var(--fc-now-indicator-arrow-vertical-radius) 0;
     border-top-color: transparent;
     border-bottom-color: transparent;
   }

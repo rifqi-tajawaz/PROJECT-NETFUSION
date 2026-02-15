@@ -401,8 +401,15 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
   }
 .fc .fc-scrollgrid-section-header.fc-scrollgrid-section-sticky > * {
     top: 0; /* because border-sharing causes a gap at the top */
-      /* TODO: give safari -1. has bug */
   }
+/* TODO: give safari -1. has bug */
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) {
+        .fc .fc-scrollgrid-section-header.fc-scrollgrid-section-sticky > * {
+            top: -1px;
+        }
+    }
+}
 .fc .fc-scrollgrid-section-footer.fc-scrollgrid-section-sticky > * {
     bottom: 0; /* known bug: bottom-stickiness doesn't work in safari */
   }

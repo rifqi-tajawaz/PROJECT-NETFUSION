@@ -202,24 +202,45 @@ var Lobibox = Lobibox || {};
             var time = 0;
             var interval = 1000 / 30;
             var currentTime = new Date().getTime();
-            var timer = setInterval(function () {
+            var lastTime = currentTime;
+            var rafId;
+
+            function loop() {
+                var now = new Date().getTime();
+                var delta = now - lastTime;
+                lastTime = now;
+
                 if (me.$options.continueDelayOnInactiveTab) {
-                    time = new Date().getTime() - currentTime;
+                    time = now - currentTime;
                 } else {
-                    time += interval;
+                    if (interval > 0) {
+                        // Clamp delta to prevent jumps if tab was inactive and we want to "pause"
+                        if (delta > 300) {
+                            delta = 16.6;
+                        }
+                        time += delta;
+                    }
                 }
 
                 var width = 100 * time / me.$options.delay;
                 if (width >= 100) {
                     width = 100;
                     me.remove();
-                    timer = clearInterval(timer);
+                    return;
                 }
+
                 if (me.$options.delayIndicator) {
                     delay.find('div').css('width', width + "%");
                 }
 
-            }, interval);
+                if (me.$el.hasClass(me.$options.hideClass)) {
+                    return;
+                }
+
+                rafId = requestAnimationFrame(loop);
+            }
+
+            rafId = requestAnimationFrame(loop);
 
             if (me.$options.pauseDelayOnHover) {
                 $el.on('mouseenter.lobibox', function () {

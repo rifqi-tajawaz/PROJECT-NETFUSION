@@ -91,22 +91,30 @@ $(function () {
   /* email */
 
   $(".email-toggle-btn").on("click", function () {
-    $(".email-wrapper").toggleClass("email-toggled")
-  }), $(".email-toggle-btn-mobile").on("click", function () {
-    $(".email-wrapper").removeClass("email-toggled")
-  }), $(".compose-mail-btn").on("click", function () {
-    $(".compose-mail-popup").show()
-  }), $(".compose-mail-close").on("click", function () {
-    $(".compose-mail-popup").hide()
-  }),
+    $(".email-wrapper").toggleClass("email-toggled");
+  });
+
+  $(".email-toggle-btn-mobile").on("click", function () {
+    $(".email-wrapper").removeClass("email-toggled");
+  });
+
+  $(".compose-mail-btn").on("click", function () {
+    $(".compose-mail-popup").show();
+  });
+
+  $(".compose-mail-close").on("click", function () {
+    $(".compose-mail-popup").hide();
+  });
 
 
     /* chat */
 
     $(".chat-toggle-btn").on("click", function () {
-      $(".chat-wrapper").toggleClass("chat-toggled")
-    }), $(".chat-toggle-btn-mobile").on("click", function () {
-      $(".chat-wrapper").removeClass("chat-toggled")
+      $(".chat-wrapper").toggleClass("chat-toggled");
+    });
+
+    $(".chat-toggle-btn-mobile").on("click", function () {
+      $(".chat-wrapper").removeClass("chat-toggled");
     });
 
 
